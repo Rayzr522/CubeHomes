@@ -14,11 +14,21 @@ public class Home {
 	private Location	location;
 	private boolean		isValid	= false;
 
+	public Home(Player p, String name) {
+
+		this.id = p.getUniqueId();
+		this.name = name;
+		this.location = p.getLocation();
+
+		isValid = true;
+
+	}
+
 	public Home(UUID id, ConfigurationSection section) {
 
 		this.id = id;
 
-		name = section.getName();
+		name = section.getString("name");
 		location = ConfigUtils.location(section.getString("pos"));
 
 		if (location != null) {
@@ -66,7 +76,9 @@ public class Home {
 
 	public ConfigurationSection save(ConfigurationSection playerSection) {
 
-		ConfigurationSection homeSection = playerSection.createSection(name);
+		ConfigurationSection homeSection = playerSection.createSection(TextUtils.safeString(name));
+
+		homeSection.set("name", name);
 		homeSection.set("pos", ConfigUtils.toString(location));
 
 		return homeSection;

@@ -1,9 +1,14 @@
 
 package com.rayzr522.cubehomes;
 
+import java.util.Locale;
+import java.util.regex.Pattern;
+
 import org.bukkit.ChatColor;
 
 public class TextUtils {
+
+	public static final Pattern UNSAFE_CHARS = Pattern.compile("[^a-z0-9]");
 
 	public static String colorize(String text) {
 
@@ -27,6 +32,11 @@ public class TextUtils {
 
 		return text.trim().toUpperCase().replace(" ", "_");
 
+	}
+
+	// Yes, this is from Essentials. Stop judging me.
+	public static String safeString(String text) {
+		return UNSAFE_CHARS.matcher(text.toLowerCase(Locale.ENGLISH)).replaceAll("_");
 	}
 
 }

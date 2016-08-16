@@ -12,13 +12,17 @@ import com.rayzr522.cubehomes.cmd.CommandSetHome;
 
 public class CubeHomes extends JavaPlugin {
 
-	private Logger			logger;
-	private ConfigManager	cm;
+	public static PlayerNames	pn;
+
+	private Logger				logger;
+	private ConfigManager		cm;
 
 	@Override
 	public void onEnable() {
 
 		logger = getLogger();
+
+		pn = new PlayerNames(this);
 		cm = new ConfigManager(this);
 
 		load();
@@ -26,7 +30,7 @@ public class CubeHomes extends JavaPlugin {
 		getCommand("home").setExecutor(new CommandHome());
 		getCommand("sethome").setExecutor(new CommandSetHome());
 		getCommand("delhome").setExecutor(new CommandDelHome());
-		getCommand("cubehomes").setExecutor(new CommandCubeHomes());
+		getCommand("cubehomes").setExecutor(new CommandCubeHomes(this));
 
 		logger.info(versionText() + " enabled");
 
@@ -36,18 +40,21 @@ public class CubeHomes extends JavaPlugin {
 
 		Msg.load(cm.getOrCreate("messages.yml"));
 		Homes.load(cm.getOrCreate("homes.yml"));
+		Config.load(this);
 
 	}
 
 	public void save() {
 
 		cm.saveConfig("homes.yml", Homes.save());
+		pn.save();
 
 	}
 
 	@Override
 	public void onDisable() {
 
+		save();
 		logger.info(versionText() + " disabled");
 
 	}

@@ -1,0 +1,10 @@
+#########################
+#  CUBE HOMES by Rayzr  #
+# Requested by xOrlxndo #
+#########################
+
+permissions:
+    home: "CubeHomes.home"
+    sethome: "CubeHomes.sethome"
+    delhome: "CubeHomes.delhome"
+    cubehomes: "CubeHomes.admin"

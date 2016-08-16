@@ -84,4 +84,21 @@ public class Homes {
 		return null;
 	}
 
+	public static void set(Player p, String name) {
+
+		List<Home> homeList = get(p);
+		Home home = get(p, name);
+
+		if (home == null) {
+			home = new Home(p, name);
+		} else {
+			homeList.remove(home);
+			home.setLocation(p.getLocation());
+		}
+
+		homeList.add(home);
+		homes.put(p.getUniqueId(), homeList);
+
+	}
+
 }

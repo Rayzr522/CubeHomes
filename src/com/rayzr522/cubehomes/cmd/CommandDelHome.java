@@ -1,11 +1,13 @@
 
 package com.rayzr522.cubehomes.cmd;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.rayzr522.cubehomes.Config;
 import com.rayzr522.cubehomes.Home;
 import com.rayzr522.cubehomes.Homes;
 import com.rayzr522.cubehomes.Msg;
@@ -21,24 +23,14 @@ public class CommandDelHome implements CommandExecutor {
 
 		Player p = (Player) sender;
 
-		if (args.length < 1) {
+		if (!p.hasPermission(Config.PERM_DELHOME)) {
 
-			Msg.send(sender, "usage.home");
+			Msg.send(p, "no-permission");
 			return true;
 
 		}
 
-		Home home = Homes.get(p, args[0]);
-
-		if (home == null) {
-
-			Msg.send(sender, "unknown-home", args[0]);
-			return true;
-
-		}
-
-		home.tp(p);
-
+		p.sendMessage(ChatColor.RED + "WIP, go yell at Rayzr to get it done :P");
 		return true;
 
 	}
