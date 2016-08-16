@@ -1,0 +1,9 @@
+usage:
+    home: "&7/home &a[name]"
+    sethome: "&7/sethome &a<name>"
+    delhome: "&7/delhome &a<name>"
+    cubehomes: "&7/cubehomes &a[reload|save]"
+only-players: "&cOnly players can use this command!"
+unknown-home: "&cThe home '{0}' is unknown"
+no-homes: "&7You have no homes. Do '[[usage.sethome]]&7' to set one."
+your-homes: "&7Your homes: &a{0}"
