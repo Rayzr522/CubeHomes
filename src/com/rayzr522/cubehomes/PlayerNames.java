@@ -2,7 +2,9 @@
 package com.rayzr522.cubehomes;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 
@@ -27,13 +29,9 @@ public class PlayerNames {
 	private HashMap<UUID, String>	uuidToString	= new HashMap<UUID, String>();
 	private HashMap<String, UUID>	stringToUUID	= new HashMap<String, UUID>();
 
-	private JavaPlugin				plugin;
-
 	private String					dataFilePath	= "playerNames.db";
 
 	public PlayerNames(JavaPlugin plugin) {
-
-		this.plugin = plugin;
 
 		dataFilePath = plugin.getDataFolder() + File.separator + dataFilePath;
 
@@ -61,11 +59,36 @@ public class PlayerNames {
 			} catch (Exception e) {
 				System.err.println("Failed to create playerNames.db for the PlayerNames util.");
 				System.err.println("Please report this to Rayzr on the Bukkit or Spigot forums along with the following stacktrace:");
+				System.err.println("Attempted to create file at '" + file.getAbsolutePath() + "', dataFilePath = '" + dataFilePath + "'");
 				e.printStackTrace();
 			}
 		}
 
 		return file;
+
+	}
+
+	public List<String> names() {
+
+		List<String> list = new ArrayList<String>();
+
+		list.add("uuidToString:");
+
+		for (Entry<UUID, String> entry : uuidToString.entrySet()) {
+
+			list.add(entry.getKey().toString() + ": " + entry.getValue());
+
+		}
+
+		list.add("stringToUUID:");
+
+		for (Entry<String, UUID> entry : stringToUUID.entrySet()) {
+
+			list.add(entry.getKey().toString() + ": " + entry.getValue());
+
+		}
+
+		return list;
 
 	}
 

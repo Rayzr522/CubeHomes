@@ -22,9 +22,9 @@ public class Msg {
 
 		for (String key : config.getKeys(true)) {
 
-			System.out.println(key + " - " + config.getString(key));
-
-			messages.put(key, config.getString(key));
+			if (config.get(key) instanceof String) {
+				messages.put(key, config.getString(key));
+			}
 
 		}
 
@@ -48,6 +48,7 @@ public class Msg {
 
 			}
 
+			System.out.println(entry.getKey() + " - " + msg);
 			messages.put(entry.getKey(), msg);
 
 		}
