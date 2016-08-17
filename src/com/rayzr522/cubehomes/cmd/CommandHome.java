@@ -2,6 +2,7 @@
 package com.rayzr522.cubehomes.cmd;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import com.rayzr522.cubehomes.ArrayUtils;
 import com.rayzr522.cubehomes.Config;
+import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.Home;
 import com.rayzr522.cubehomes.Homes;
 import com.rayzr522.cubehomes.Msg;
@@ -39,7 +41,33 @@ public class CommandHome implements CommandExecutor {
 
 		}
 
-		Home home = Homes.get(p, args[0]);
+		Home home;
+
+		if (args.length > 1) {
+
+			if (!p.hasPermission(Config.PERM_OTHERS)) {
+
+				Msg.send(p, "no-permission");
+				return true;
+
+			}
+
+			UUID id = CubeHomes.pn.get(args[1]);
+
+			if (id == null) {
+
+				Msg.send(p, "no-player", args[1]);
+				return true;
+
+			}
+
+			home = Homes.get(id, args[0]);
+
+		} else {
+
+			home = Homes.get(p, args[0]);
+
+		}
 
 		if (home == null) {
 

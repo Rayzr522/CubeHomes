@@ -5,6 +5,8 @@
 
 permissions:
     home: "CubeHomes.home"
+    more: "CubeHomes.more"
+    others: "CubeHomes.others"
     sethome: "CubeHomes.sethome"
     delhome: "CubeHomes.delhome"
     cubehomes: "CubeHomes.admin"

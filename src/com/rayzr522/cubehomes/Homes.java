@@ -66,18 +66,28 @@ public class Homes {
 	}
 
 	public static List<Home> get(Player p) {
-		if (!homes.containsKey(p.getUniqueId())) {
-			init(p);
-		}
-		return homes.get(p.getUniqueId());
+		return get(p.getUniqueId());
 	}
 
-	public static void init(Player p) {
-		homes.put(p.getUniqueId(), new ArrayList<Home>());
+	public static List<Home> get(UUID id) {
+
+		if (!homes.containsKey(id)) {
+			init(id);
+		}
+		return homes.get(id);
+
+	}
+
+	public static void init(UUID id) {
+		homes.put(id, new ArrayList<Home>());
 	}
 
 	public static Home get(Player p, String name) {
-		List<Home> homeList = get(p);
+		return get(p.getUniqueId(), name);
+	}
+
+	public static Home get(UUID id, String name) {
+		List<Home> homeList = get(id);
 		for (Home home : homeList) {
 			if (TextUtils.enumFormat(name).equals(TextUtils.enumFormat(home.getName()))) { return home; }
 		}
@@ -98,6 +108,27 @@ public class Homes {
 
 		homeList.add(home);
 		homes.put(p.getUniqueId(), homeList);
+
+	}
+
+	public static boolean del(UUID id, String name) {
+
+		Home home = get(id, name);
+		if (home == null) { return false; }
+		return del(id, home);
+
+	}
+
+	public static boolean del(UUID id, Home home) {
+
+		List<Home> homeList = get(id);
+
+		if (homeList.remove(home)) {
+			homes.put(id, homeList);
+			return true;
+		}
+
+		return false;
 
 	}
 
