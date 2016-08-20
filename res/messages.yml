@@ -1,7 +1,7 @@
 usage:
-    home: "&7/home &a[name]"
+    home: "&7/home &a[player] [name]"
     sethome: "&7/sethome &a<name>"
-    delhome: "&7/delhome &a<name>"
+    delhome: "&7/delhome &a[player] <name>"
     cubehomes: "&7/cubehomes &a[reload|save]"
 only-players: "&cOnly players can use this command!"
 no-permission: "&cYou don't have permission to do that"

@@ -51,16 +51,16 @@ public class CommandDelHome implements CommandExecutor {
 
 			}
 
-			id = CubeHomes.pn.get(args[1]);
+			id = CubeHomes.pn.get(args[0]);
 
 			if (id == null) {
 
-				Msg.send(p, "no-player", args[1]);
+				Msg.send(p, "no-player", args[0]);
 				return true;
 
 			}
 
-			home = Homes.get(id, args[0]);
+			home = Homes.get(id, args[1]);
 
 		} else {
 
@@ -70,7 +70,7 @@ public class CommandDelHome implements CommandExecutor {
 
 		if (home == null) {
 
-			Msg.send(sender, "unknown-home", args[0]);
+			Msg.send(sender, "unknown-home", args.length > 1 ? args[1] : args[0]);
 			return true;
 
 		}
