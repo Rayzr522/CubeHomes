@@ -1,6 +1,9 @@
-/target/
 /bin/
+/target/
 .classpath
 .project
 .settings
 .metadata
+*.jardesc
+.idea
+.recommenders
