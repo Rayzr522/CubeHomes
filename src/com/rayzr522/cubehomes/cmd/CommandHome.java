@@ -45,12 +45,33 @@ public class CommandHome implements CommandExecutor {
 
 		if (args.length > 1) {
 
-			if (!p.hasPermission(Config.PERM_OTHERS)) {
+			if (args[0].equalsIgnoreCase("toggle")) {
 
-				Msg.send(p, "no-permission");
+				home = Homes.get(p, args[1]);
+
+				if (home == null) {
+
+					Msg.send(sender, "unknown-home", args.length > 1 ? args[1] : args[0]);
+					return true;
+
+				}
+
+				boolean accessible = home.toggleAccessibility();
+
+				Msg.send(sender, "home-access", args[1], accessible ? "enabled" : "disabled");
 				return true;
 
 			}
+
+			// I think this isn't supposed to be here... having a little trouble
+			// understanding what xOrlxndo wanted:
+			/*
+			 * if (!p.hasPermission(Config.PERM_OTHERS)) {
+			 * 
+			 * Msg.send(p, "no-permission"); return true;
+			 * 
+			 * }
+			 */
 
 			UUID id = CubeHomes.pn.get(args[0]);
 
@@ -76,6 +97,14 @@ public class CommandHome implements CommandExecutor {
 
 		}
 
+		if (!home.isOwner(p) && !home.isAccessible()) {
+
+			Msg.send(sender, "no-access", home.getName());
+			return true;
+
+		}
+
+		Msg.send(sender, "teleporting", home.getName());
 		home.tp(p);
 
 		return true;

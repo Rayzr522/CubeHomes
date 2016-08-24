@@ -1,16 +1,55 @@
+### NOTES:
+# - '&' color codes are translated automatically
+# - You can reference a key with [[key]] (see the 'no-homes' message for an example)
+# - A color-code reference sheet can be found at the bottom of this file
+
+
+
 usage:
-    home: "&7/home &a[player] [name]"
+    home: "&7/home &a[player|toggle] [name]"
     sethome: "&7/sethome &a<name>"
     delhome: "&7/delhome &a[player] <name>"
     cubehomes: "&7/cubehomes &a[reload|save]"
+
 only-players: "&cOnly players can use this command!"
 no-permission: "&cYou don't have permission to do that"
-no-player: "&7The player '&a{0}&7' could not be found"
 unknown-home: "&cThe home '{0}' is unknown"
+
+no-player: "&7The player '&a{0}&7' could not be found"
 no-homes: "&7You have no homes. Do '[[usage.sethome]]&7' to set one."
+no-access: "&7You don't have access to the home '&a{0}&7'"
+
 your-homes: "&7Your homes: &a{0}"
 home-set: "&7Home '&a{0}&7' set"
+home-deleted: "&7The home '&a{0}&7' has been deleted"
+home-access: "&7Access to home '&a{0}&7' is now &a{1}"
+teleporting: "&7Teleporting to home '&a{0}&7'"
+
 config-saved: "&7The config has been saved"
 config-reloaded: "&7The config has been reloaded"
-home-deleted: "&7The home '&a{0}&7' has been deleted"
 version-info: "&7This server is running &a{0}&7 v&a{1}&7"
+
+
+
+# 0 = black
+# 1 = dark blue
+# 2 = dark green
+# 3 = teal
+# 4 = dark red
+# 5 = purple
+# 6 = gold
+# 7 = gray
+# 8 = dark gray
+# 9 = blue
+# a = light green
+# b = aqua
+# c = red
+# d = pink
+# e = yellow
+# f = white
+# k = magic
+# l = bold
+# m = strike through
+# n = underline
+# o = italic
+# r = reset (white, no formatting)

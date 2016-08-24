@@ -12,7 +12,8 @@ public class Home {
 	private UUID		id;
 	private String		name;
 	private Location	location;
-	private boolean		isValid	= false;
+	private boolean		isValid		= false;
+	private boolean		accessible	= true;
 
 	public Home(Player p, String name) {
 
@@ -29,6 +30,7 @@ public class Home {
 		this.id = id;
 
 		name = section.getString("name");
+		accessible = section.getBoolean("accessible");
 		location = ConfigUtils.location(section.getString("pos"));
 
 		if (location != null) {
@@ -69,9 +71,21 @@ public class Home {
 		this.location = location;
 	}
 
+	public boolean isAccessible() {
+		return accessible;
+	}
+
+	public void setAccessible(boolean accessible) {
+		this.accessible = accessible;
+	}
+
+	public boolean toggleAccessibility() {
+		return accessible = !accessible;
+	}
+
 	@Override
 	public String toString() {
-		return "Home [id=" + id + ", name=" + name + ", location=" + location + ", isValid=" + isValid + "]";
+		return "Home [id=" + id + ", name=" + name + ", location=" + location + ", isValid=" + isValid + ", accessible=" + accessible + "]";
 	}
 
 	public ConfigurationSection save(ConfigurationSection playerSection) {
@@ -80,9 +94,14 @@ public class Home {
 
 		homeSection.set("name", name);
 		homeSection.set("pos", ConfigUtils.toString(location));
+		homeSection.set("accessible", accessible);
 
 		return homeSection;
 
+	}
+
+	public boolean isOwner(Player p) {
+		return p.getUniqueId() == id;
 	}
 
 }

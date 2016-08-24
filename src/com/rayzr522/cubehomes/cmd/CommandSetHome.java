@@ -42,4 +42,8 @@ public class CommandSetHome implements CommandExecutor {
 
 	}
 
+	public int numHomes(Player player) {
+		return Homes.get(player).size();
+	}
+
 }
