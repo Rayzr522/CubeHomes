@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.rayzr522.cubehomes.Config;
+import com.rayzr522.cubehomes.Home;
 import com.rayzr522.cubehomes.Homes;
 import com.rayzr522.cubehomes.Msg;
 
@@ -35,7 +36,21 @@ public class CommandSetHome implements CommandExecutor {
 
 		}
 
-		Homes.set(p, args[0]);
+		Home home = Homes.get(args[0]);
+		if (home != null) {
+			if (!home.isOwner(p) && !p.hasPermission(Config.PERM_OTHERS)) {
+				Msg.send(p, "not-owner", args[0]);
+				return true;
+			}
+			if (!Homes.update(p, home)) {
+				Msg.send(p, "error");
+			}
+		} else if (numHomes(p) > 0 && (!p.hasPermission(Config.PERM_MORE) || !p.hasPermission(Config.PERM_MORE + "." + numHomes(p)))) {
+			Msg.send(p, "max-homes", "" + numHomes(p));
+		} else {
+			Homes.add(p, args[0]);
+		}
+
 		Msg.send(p, "home-set", args[0]);
 
 		return true;

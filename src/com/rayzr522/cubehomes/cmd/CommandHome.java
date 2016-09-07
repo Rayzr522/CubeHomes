@@ -2,7 +2,6 @@
 package com.rayzr522.cubehomes.cmd;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,7 +10,6 @@ import org.bukkit.entity.Player;
 
 import com.rayzr522.cubehomes.ArrayUtils;
 import com.rayzr522.cubehomes.Config;
-import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.Home;
 import com.rayzr522.cubehomes.Homes;
 import com.rayzr522.cubehomes.Msg;
@@ -41,19 +39,24 @@ public class CommandHome implements CommandExecutor {
 
 		}
 
-		Home home;
+		Home home = Homes.get(args[0]);
 
 		if (args.length > 1) {
 
 			if (args[0].equalsIgnoreCase("toggle")) {
 
-				home = Homes.get(p, args[1]);
+				home = Homes.get(args[1]);
 
 				if (home == null) {
 
-					Msg.send(sender, "unknown-home", args.length > 1 ? args[1] : args[0]);
+					Msg.send(sender, "unknown-home", args[1]);
 					return true;
 
+				}
+
+				if (!home.isOwner(p)) {
+					Msg.send(sender, "not-owner", args[1]);
+					return true;
 				}
 
 				boolean accessible = home.toggleAccessibility();
@@ -62,31 +65,6 @@ public class CommandHome implements CommandExecutor {
 				return true;
 
 			}
-
-			// I think this isn't supposed to be here... having a little trouble
-			// understanding what xOrlxndo wanted:
-			/*
-			 * if (!p.hasPermission(Config.PERM_OTHERS)) {
-			 * 
-			 * Msg.send(p, "no-permission"); return true;
-			 * 
-			 * }
-			 */
-
-			UUID id = CubeHomes.pn.get(args[0]);
-
-			if (id == null) {
-
-				Msg.send(p, "no-player", args[0]);
-				return true;
-
-			}
-
-			home = Homes.get(id, args[1]);
-
-		} else {
-
-			home = Homes.get(p, args[0]);
 
 		}
 
@@ -113,7 +91,7 @@ public class CommandHome implements CommandExecutor {
 
 	private void listHomes(Player player) {
 
-		List<Home> homes = Homes.get(player);
+		List<Home> homes = Homes.all();
 
 		if (homes.size() < 1) {
 
@@ -121,7 +99,7 @@ public class CommandHome implements CommandExecutor {
 
 		} else {
 
-			Msg.send(player, "your-homes", ArrayUtils.concat(ArrayUtils.names(homes), ", "));
+			Msg.send(player, "all-homes", ArrayUtils.concat(ArrayUtils.names(homes), ", "));
 
 		}
 

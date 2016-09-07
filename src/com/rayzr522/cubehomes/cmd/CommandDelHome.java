@@ -1,15 +1,12 @@
 
 package com.rayzr522.cubehomes.cmd;
 
-import java.util.UUID;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.rayzr522.cubehomes.Config;
-import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.Home;
 import com.rayzr522.cubehomes.Homes;
 import com.rayzr522.cubehomes.Msg;
@@ -39,34 +36,7 @@ public class CommandDelHome implements CommandExecutor {
 
 		}
 
-		Home home;
-		UUID id = p.getUniqueId();
-
-		if (args.length > 1) {
-
-			if (!p.hasPermission(Config.PERM_OTHERS)) {
-
-				Msg.send(p, "no-permission");
-				return true;
-
-			}
-
-			id = CubeHomes.pn.get(args[0]);
-
-			if (id == null) {
-
-				Msg.send(p, "no-player", args[0]);
-				return true;
-
-			}
-
-			home = Homes.get(id, args[1]);
-
-		} else {
-
-			home = Homes.get(id, args[0]);
-
-		}
+		Home home = Homes.get(args[0]);
 
 		if (home == null) {
 
@@ -75,7 +45,17 @@ public class CommandDelHome implements CommandExecutor {
 
 		}
 
-		Homes.del(id, home);
+		if (!home.isOwner(p) && !p.hasPermission(Config.PERM_OTHERS)) {
+
+			Msg.send(p, "not-owner", args[0]);
+			return true;
+
+		}
+
+		if (!Homes.del(home)) {
+			Msg.send(p, "error");
+		}
+
 		Msg.send(sender, "home-deleted", args[0]);
 
 		return true;

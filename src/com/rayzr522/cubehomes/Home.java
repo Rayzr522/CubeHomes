@@ -1,13 +1,16 @@
 
 package com.rayzr522.cubehomes;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
 
-public class Home {
+public class Home implements ConfigurationSerializable {
 
 	private UUID		id;
 	private String		name;
@@ -25,13 +28,12 @@ public class Home {
 
 	}
 
-	public Home(UUID id, ConfigurationSection section) {
+	public Home(ConfigurationSection section) {
 
-		this.id = id;
-
+		id = UUID.fromString(section.getString("owner"));
 		name = section.getString("name");
-		accessible = section.getBoolean("accessible");
 		location = ConfigUtils.location(section.getString("pos"));
+		accessible = section.getBoolean("accessible");
 
 		if (location != null) {
 			isValid = true;
@@ -88,20 +90,22 @@ public class Home {
 		return "Home [id=" + id + ", name=" + name + ", location=" + location + ", isValid=" + isValid + ", accessible=" + accessible + "]";
 	}
 
-	public ConfigurationSection save(ConfigurationSection playerSection) {
-
-		ConfigurationSection homeSection = playerSection.createSection(TextUtils.safeString(name));
-
-		homeSection.set("name", name);
-		homeSection.set("pos", ConfigUtils.toString(location));
-		homeSection.set("accessible", accessible);
-
-		return homeSection;
-
-	}
-
 	public boolean isOwner(Player p) {
 		return p.getUniqueId() == id;
+	}
+
+	@Override
+	public Map<String, Object> serialize() {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("owner", id);
+		map.put("name", name);
+		map.put("pos", ConfigUtils.toString(location));
+		map.put("accessible", accessible);
+
+		return map;
+
 	}
 
 }
