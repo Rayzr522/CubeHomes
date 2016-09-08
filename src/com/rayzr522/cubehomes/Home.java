@@ -15,8 +15,7 @@ public class Home implements ConfigurationSerializable {
 	private UUID		id;
 	private String		name;
 	private Location	location;
-	private boolean		isValid		= false;
-	private boolean		accessible	= true;
+	private boolean		isValid	= false;
 
 	public Home(Player p, String name) {
 
@@ -33,7 +32,6 @@ public class Home implements ConfigurationSerializable {
 		id = UUID.fromString(section.getString("owner"));
 		name = section.getString("name");
 		location = ConfigUtils.location(section.getString("pos"));
-		accessible = section.getBoolean("accessible");
 
 		if (location != null) {
 			isValid = true;
@@ -74,20 +72,12 @@ public class Home implements ConfigurationSerializable {
 	}
 
 	public boolean isAccessible() {
-		return accessible;
-	}
-
-	public void setAccessible(boolean accessible) {
-		this.accessible = accessible;
-	}
-
-	public boolean toggleAccessibility() {
-		return accessible = !accessible;
+		return Homes.isAccessible(id);
 	}
 
 	@Override
 	public String toString() {
-		return "Home [id=" + id + ", name=" + name + ", location=" + location + ", isValid=" + isValid + ", accessible=" + accessible + "]";
+		return "Home [id=" + id + ", name=" + name + ", location=" + location + ", isValid=" + isValid + "]";
 	}
 
 	public boolean isOwner(Player p) {
@@ -102,7 +92,6 @@ public class Home implements ConfigurationSerializable {
 		map.put("owner", id);
 		map.put("name", name);
 		map.put("pos", ConfigUtils.toString(location));
-		map.put("accessible", accessible);
 
 		return map;
 

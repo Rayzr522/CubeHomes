@@ -2,7 +2,9 @@
 package com.rayzr522.cubehomes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -10,18 +12,32 @@ import org.bukkit.entity.Player;
 
 public class Homes {
 
-	private static List<Home> homes = new ArrayList<Home>();
+	private static List<Home>				homes	= new ArrayList<Home>();
+	private static HashMap<UUID, Boolean>	players	= new HashMap<UUID, Boolean>();
 
 	public static void load(YamlConfiguration config) {
 
 		homes.clear();
 
-		for (String key : config.getKeys(false)) {
+		ConfigurationSection section = config.getConfigurationSection("homes");
+		// If there's no section then there's no point trying to load
+		if (section == null) {
+			config.createSection("homes");
+		} else {
+			for (String key : section.getKeys(false)) {
+				ConfigurationSection homeSection = section.getConfigurationSection(key);
+				homes.add(new Home(homeSection));
+			}
+		}
 
-			ConfigurationSection homeSection = config.getConfigurationSection(key);
-
-			homes.add(new Home(homeSection));
-
+		section = config.getConfigurationSection("players");
+		// If there's no section then there's no point trying to load
+		if (section == null) {
+			config.createSection("players");
+		} else {
+			for (String key : section.getKeys(false)) {
+				players.put(UUID.fromString(key), section.getBoolean(key));
+			}
 		}
 
 	}
@@ -94,6 +110,21 @@ public class Homes {
 
 	public static List<Home> all() {
 		return homes;
+	}
+
+	public static boolean isAccessible(UUID id) {
+		if (!players.containsKey(id)) {
+			players.put(id, true);
+		}
+		return players.get(id);
+	}
+
+	public static boolean setAccessible(UUID id, boolean accessible) {
+		return players.put(id, accessible);
+	}
+
+	public static boolean toggleAccessibility(Player p) {
+		return setAccessible(p.getUniqueId(), !isAccessible(p.getUniqueId()));
 	}
 
 }

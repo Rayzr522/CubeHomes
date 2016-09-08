@@ -39,34 +39,16 @@ public class CommandHome implements CommandExecutor {
 
 		}
 
-		Home home = Homes.get(args[0]);
+		if (args[0].equalsIgnoreCase("toggle")) {
 
-		if (args.length > 1) {
+			boolean accessible = Homes.toggleAccessibility(p);
 
-			if (args[0].equalsIgnoreCase("toggle")) {
-
-				home = Homes.get(args[1]);
-
-				if (home == null) {
-
-					Msg.send(sender, "unknown-home", args[1]);
-					return true;
-
-				}
-
-				if (!home.isOwner(p)) {
-					Msg.send(sender, "not-owner", args[1]);
-					return true;
-				}
-
-				boolean accessible = home.toggleAccessibility();
-
-				Msg.send(sender, "home-access", args[1], accessible ? "enabled" : "disabled");
-				return true;
-
-			}
+			Msg.send(sender, "home-access", accessible ? "enabled" : "disabled");
+			return true;
 
 		}
+
+		Home home = Homes.get(args[0]);
 
 		if (home == null) {
 
