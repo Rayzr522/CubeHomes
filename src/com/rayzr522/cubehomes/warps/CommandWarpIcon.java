@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import com.rayzr522.cubehomes.Config;
 import com.rayzr522.cubehomes.Msg;
 
-public class CommandSetWarp implements CommandExecutor {
+public class CommandWarpIcon implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
@@ -20,7 +20,7 @@ public class CommandSetWarp implements CommandExecutor {
 
 		Player p = (Player) sender;
 
-		if (!p.hasPermission(Config.PERM_SETWARP)) {
+		if (!p.hasPermission(Config.PERM_WARPICON)) {
 
 			Msg.send(p, "no-permission");
 			return true;
@@ -29,13 +29,13 @@ public class CommandSetWarp implements CommandExecutor {
 
 		if (args.length < 1) {
 
-			Msg.send(p, "usage.setwarp");
+			Msg.send(p, "usage.warpicon");
 			return true;
 
 		}
 
 		Warps.add(p, args[0]);
-		Msg.send(p, "warp-set", args[0]);
+		Msg.send(p, "warp-icon-set", args[0]);
 
 		return true;
 
