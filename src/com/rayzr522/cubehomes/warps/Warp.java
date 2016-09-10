@@ -1,35 +1,34 @@
 
-package com.rayzr522.cubehomes;
+package com.rayzr522.cubehomes.warps;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
 
-public class Home implements ConfigurationSerializable {
+import com.rayzr522.cubehomes.ConfigUtils;
 
-	private UUID		id;
+public class Warp implements ConfigurationSerializable {
+
 	private String		name;
 	private Location	location;
 	private boolean		isValid	= false;
 
-	public Home(Player p, String name) {
+	public Warp(String name, Location location) {
 
-		this.id = p.getUniqueId();
 		this.name = name;
-		this.location = p.getLocation();
+		this.location = location;
 
 		isValid = true;
 
 	}
 
-	public Home(ConfigurationSection section) {
+	public Warp(ConfigurationSection section) {
 
-		id = UUID.fromString(section.getString("owner"));
 		name = section.getString("name");
 		location = ConfigUtils.location(section.getString("pos"));
 
@@ -47,12 +46,8 @@ public class Home implements ConfigurationSerializable {
 		player.teleport(location);
 	}
 
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
+	public World getWorld() {
+		return location.getWorld();
 	}
 
 	public String getName() {
@@ -71,25 +66,11 @@ public class Home implements ConfigurationSerializable {
 		this.location = location;
 	}
 
-	public boolean isAccessible() {
-		return Homes.isAccessible(id);
-	}
-
-	@Override
-	public String toString() {
-		return "Home [id=" + id + ", name=" + name + ", location=" + location + ", isValid=" + isValid + "]";
-	}
-
-	public boolean isOwner(Player p) {
-		return p.getUniqueId() == id;
-	}
-
 	@Override
 	public Map<String, Object> serialize() {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		map.put("owner", id);
 		map.put("name", name);
 		map.put("pos", ConfigUtils.toString(location));
 

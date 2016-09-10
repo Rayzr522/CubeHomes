@@ -1,5 +1,5 @@
 
-package com.rayzr522.cubehomes;
+package com.rayzr522.cubehomes.warps;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +10,10 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-public class Homes {
+import com.rayzr522.cubehomes.TextUtils;
+import com.rayzr522.cubehomes.homes.Home;
+
+public class Warps {
 
 	private static List<Home>				homes	= new ArrayList<Home>();
 	private static HashMap<UUID, Boolean>	players	= new HashMap<UUID, Boolean>();

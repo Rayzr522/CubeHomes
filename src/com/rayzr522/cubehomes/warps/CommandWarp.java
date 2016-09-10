@@ -1,5 +1,5 @@
 
-package com.rayzr522.cubehomes.cmd;
+package com.rayzr522.cubehomes.warps;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import org.bukkit.entity.Player;
 
 import com.rayzr522.cubehomes.ArrayUtils;
 import com.rayzr522.cubehomes.Config;
-import com.rayzr522.cubehomes.Home;
-import com.rayzr522.cubehomes.Homes;
 import com.rayzr522.cubehomes.Msg;
+import com.rayzr522.cubehomes.homes.Home;
+import com.rayzr522.cubehomes.homes.Homes;
 
-public class CommandHome implements CommandExecutor {
+public class CommandWarp implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 

@@ -1,14 +1,10 @@
 
-package com.rayzr522.cubehomes.cmd;
+package com.rayzr522.cubehomes;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginDescriptionFile;
-
-import com.rayzr522.cubehomes.Config;
-import com.rayzr522.cubehomes.CubeHomes;
-import com.rayzr522.cubehomes.Msg;
 
 public class CommandCubeHomes implements CommandExecutor {
 
