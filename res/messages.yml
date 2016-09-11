@@ -25,7 +25,7 @@ max-homes: "&7You've hit the max number of homes you can set! (Limit: &a{0}&7)"
 all-homes: "&7Available homes: &a{0}"
 home-set: "&7Home '&a{0}&7' set"
 home-deleted: "&7The home '&a{0}&7' has been deleted"
-home-access: "&7Access to your homes is now &a{1}"
+home-access: "&7Access to your homes is now &a{0}"
 teleporting: "&7Teleporting to home '&a{0}&7'"
 
 config-saved: "&7The config has been saved"
