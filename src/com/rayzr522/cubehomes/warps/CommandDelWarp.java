@@ -8,8 +8,6 @@ import org.bukkit.entity.Player;
 
 import com.rayzr522.cubehomes.Config;
 import com.rayzr522.cubehomes.Msg;
-import com.rayzr522.cubehomes.homes.Home;
-import com.rayzr522.cubehomes.homes.Homes;
 
 public class CommandDelWarp implements CommandExecutor {
 
@@ -22,7 +20,7 @@ public class CommandDelWarp implements CommandExecutor {
 
 		Player p = (Player) sender;
 
-		if (!p.hasPermission(Config.PERM_DELHOME)) {
+		if (!p.hasPermission(Config.PERM_DELWARP)) {
 
 			Msg.send(p, "no-permission");
 			return true;
@@ -31,32 +29,25 @@ public class CommandDelWarp implements CommandExecutor {
 
 		if (args.length < 1) {
 
-			Msg.send(p, "usage.delhome");
+			Msg.send(p, "usage.delwarp");
 			return true;
 
 		}
 
-		Home home = Homes.get(args[0]);
+		Warp warp = Warps.get(args[0]);
 
-		if (home == null) {
+		if (warp == null) {
 
-			Msg.send(sender, "unknown-home", args.length > 1 ? args[1] : args[0]);
+			Msg.send(sender, "unknown-warp", args[0]);
 			return true;
 
 		}
 
-		if (!home.isOwner(p) && !p.hasPermission(Config.PERM_OTHERS)) {
-
-			Msg.send(p, "not-owner", args[0]);
-			return true;
-
-		}
-
-		if (!Homes.del(home)) {
+		if (!Warps.del(warp)) {
 			Msg.send(p, "error");
 		}
 
-		Msg.send(sender, "home-deleted", args[0]);
+		Msg.send(sender, "warp-deleted", args[0]);
 
 		return true;
 

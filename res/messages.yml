@@ -6,15 +6,24 @@
 
 
 usage:
+    cubehomes: "&7/cubehomes &a[reload|save]"
     home: "&7/home &a[player|toggle] [name]"
     sethome: "&7/sethome &a<name>"
     delhome: "&7/delhome &a[player] <name>"
-    cubehomes: "&7/cubehomes &a[reload|save]"
+    warp: "&7/warp &a[name]"
+    setwarp: "&7/setwarp &a<name>"
+    warpicon: "&7/warpicon &a<name> <item[:data]>"
+    delwarp: "&7/delwarp &a<name>"
+
+item:
+    invalid-data: "&cInvalid data value! ({0})"
+    invalid-type: "&cInvalid item type! ({0})"
 
 only-players: "&cOnly players can use this command!"
 no-permission: "&cYou don't have permission to do that"
 error: "&cSomething went wrong! Please find an Admin and tell them contact Rayzr522 on the Bukkit forums."
 unknown-home: "&cThe home '{0}' is unknown"
+unknown-warp: "&cThe warp '{0}' is unknown"
 
 no-player: "&7The player '&a{0}&7' could not be found"
 no-homes: "&7You have no homes. Do '[[usage.sethome]]&7' to set one."
@@ -27,6 +36,11 @@ home-set: "&7Home '&a{0}&7' set"
 home-deleted: "&7The home '&a{0}&7' has been deleted"
 home-access: "&7Access to your homes is now &a{0}"
 teleporting: "&7Teleporting to home '&a{0}&7'"
+
+warp-set: "&7Warp '&a{0}&7' set"
+warp-icon-set: "&7Warp icon for '&a{0}&7' set to &a{1}"
+warp-deleted: "&7The warp '&a{0}&7' has been deleted"
+teleporting-warp: "&7Teleporting to warp '&a{0}&7'"
 
 config-saved: "&7The config has been saved"
 config-reloaded: "&7The config has been reloaded"

@@ -4,9 +4,15 @@
 #########################
 
 permissions:
-    home: "CubeHomes.home"
     more: "CubeHomes.more"
     others: "CubeHomes.others"
+    home: "CubeHomes.home"
     sethome: "CubeHomes.sethome"
     delhome: "CubeHomes.delhome"
+    warp: "CubeHomes.warp"
+    setwarp: "CubeHomes.setwarp"
+    warpicon: "CubeHomes.warpicon"
+    delwarp: "CubeHomes.delhome"
     cubehomes: "CubeHomes.admin"
+
+gui-name: "&8&m----&c Warps Menu &8&m----"

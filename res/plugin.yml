@@ -9,5 +9,13 @@ commands:
     description: Set a home
   delhome:
     description: Delete a home
+  warp:
+    description: Go to one of the warps
+  setwarp:
+    description: Set a warp
+  warpicon:
+    description: Set a warp's icon
+  delwarp:
+    description: Delete a warp
   cubehomes:
-    description: Management commands for Cubehomes
+    description: Management commands for CubeHomes

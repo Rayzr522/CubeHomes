@@ -1,18 +1,14 @@
 
 package com.rayzr522.cubehomes.warps;
 
-import java.util.List;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.rayzr522.cubehomes.ArrayUtils;
 import com.rayzr522.cubehomes.Config;
 import com.rayzr522.cubehomes.Msg;
-import com.rayzr522.cubehomes.homes.Home;
-import com.rayzr522.cubehomes.homes.Homes;
+import com.rayzr522.cubehomes.menu.Menu;
 
 public class CommandWarp implements CommandExecutor {
 
@@ -25,7 +21,7 @@ public class CommandWarp implements CommandExecutor {
 
 		Player p = (Player) sender;
 
-		if (!p.hasPermission(Config.PERM_HOME)) {
+		if (!p.hasPermission(Config.PERM_WARP)) {
 
 			Msg.send(p, "no-permission");
 			return true;
@@ -34,56 +30,30 @@ public class CommandWarp implements CommandExecutor {
 
 		if (args.length < 1) {
 
-			listHomes(p);
+			openMenu(p);
 			return true;
 
 		}
 
-		if (args[0].equalsIgnoreCase("toggle")) {
+		Warp warp = Warps.get(args[0]);
 
-			boolean accessible = Homes.toggleAccessibility(p);
+		if (warp == null) {
 
-			Msg.send(sender, "home-access", accessible ? "enabled" : "disabled");
+			Msg.send(sender, "unknown-warp", args[0]);
 			return true;
 
 		}
 
-		Home home = Homes.get(args[0]);
-
-		if (home == null) {
-
-			Msg.send(sender, "unknown-home", args.length > 1 ? args[1] : args[0]);
-			return true;
-
-		}
-
-		if (!home.isOwner(p) && !home.isAccessible()) {
-
-			Msg.send(sender, "no-access", home.getName());
-			return true;
-
-		}
-
-		Msg.send(sender, "teleporting", home.getName());
-		home.tp(p);
+		Msg.send(sender, "teleporting", warp.getName());
+		warp.tp(p);
 
 		return true;
 
 	}
 
-	private void listHomes(Player player) {
+	private void openMenu(Player p) {
 
-		List<Home> homes = Homes.all();
-
-		if (homes.size() < 1) {
-
-			Msg.send(player, "no-homes");
-
-		} else {
-
-			Msg.send(player, "all-homes", ArrayUtils.concat(ArrayUtils.names(homes), ", "));
-
-		}
+		p.openInventory(Menu.create(p, 0));
 
 	}
 

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -16,7 +17,9 @@ public class Warp implements ConfigurationSerializable {
 
 	private String		name;
 	private Location	location;
-	private boolean		isValid	= false;
+	private boolean		isValid		= false;
+	private Material	iconType	= Material.EMERALD;
+	private int			iconData	= 0;
 
 	public Warp(String name, Location location) {
 
@@ -31,8 +34,13 @@ public class Warp implements ConfigurationSerializable {
 
 		name = section.getString("name");
 		location = ConfigUtils.location(section.getString("pos"));
+		iconType = Material.getMaterial(section.getString("item-type"));
+		if (iconType == null) {
+			iconType = Material.EMERALD;
+		}
+		iconData = section.getInt("item-data");
 
-		if (location != null) {
+		if (name != null && location != null) {
 			isValid = true;
 		}
 
@@ -66,6 +74,19 @@ public class Warp implements ConfigurationSerializable {
 		this.location = location;
 	}
 
+	public void setIcon(Material iconType, int iconData) {
+		this.iconType = iconType;
+		this.iconData = iconData;
+	}
+
+	public Material getIconType() {
+		return iconType;
+	}
+
+	public int getIconData() {
+		return iconData;
+	}
+
 	@Override
 	public Map<String, Object> serialize() {
 
@@ -73,6 +94,8 @@ public class Warp implements ConfigurationSerializable {
 
 		map.put("name", name);
 		map.put("pos", ConfigUtils.toString(location));
+		map.put("item-type", iconType.toString());
+		map.put("item-data", iconData);
 
 		return map;
 

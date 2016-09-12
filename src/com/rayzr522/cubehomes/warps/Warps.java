@@ -28,7 +28,12 @@ public class Warps {
 		} else {
 			for (String key : section.getKeys(false)) {
 				ConfigurationSection warpsection = section.getConfigurationSection(key);
-				warps.add(new Warp(warpsection));
+				Warp warp = new Warp(warpsection);
+				if (!warp.isValid()) {
+					System.err.println("Invalid warp for key '" + key + "'");
+					continue;
+				}
+				warps.add(warp);
 			}
 		}
 
@@ -118,6 +123,25 @@ public class Warps {
 
 	public static boolean toggleAccessibility(Player p) {
 		return setAccessible(p.getUniqueId(), !isAccessible(p.getUniqueId()));
+	}
+
+	public static List<Warp> getForPage(int page) {
+		int offset = page * 28;
+		List<Warp> _warps = new ArrayList<Warp>();
+		if (offset >= warps.size()) { return _warps; }
+
+		for (int i = 0; i < 28; i++) {
+
+			if (offset + i >= warps.size()) {
+				break;
+			}
+
+			_warps.add(warps.get(i));
+
+		}
+
+		return _warps;
+
 	}
 
 }

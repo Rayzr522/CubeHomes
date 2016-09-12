@@ -9,6 +9,11 @@ import com.rayzr522.cubehomes.homes.CommandDelHome;
 import com.rayzr522.cubehomes.homes.CommandHome;
 import com.rayzr522.cubehomes.homes.CommandSetHome;
 import com.rayzr522.cubehomes.homes.Homes;
+import com.rayzr522.cubehomes.menu.Menu;
+import com.rayzr522.cubehomes.warps.CommandDelWarp;
+import com.rayzr522.cubehomes.warps.CommandSetWarp;
+import com.rayzr522.cubehomes.warps.CommandWarp;
+import com.rayzr522.cubehomes.warps.CommandWarpIcon;
 import com.rayzr522.cubehomes.warps.Warps;
 
 public class CubeHomes extends JavaPlugin {
@@ -28,12 +33,15 @@ public class CubeHomes extends JavaPlugin {
 		getCommand("home").setExecutor(new CommandHome());
 		getCommand("sethome").setExecutor(new CommandSetHome());
 		getCommand("delhome").setExecutor(new CommandDelHome());
-		
-		getCommand("warp").setExecutor(new CommandHome());
-		getCommand("setwarp").setExecutor(new CommandSetHome());
-		getCommand("delwarp").setExecutor(new CommandDelHome());
-		
+
+		getCommand("warp").setExecutor(new CommandWarp());
+		getCommand("warpicon").setExecutor(new CommandWarpIcon());
+		getCommand("setwarp").setExecutor(new CommandSetWarp());
+		getCommand("delwarp").setExecutor(new CommandDelWarp());
+
 		getCommand("cubehomes").setExecutor(new CommandCubeHomes(this));
+
+		getServer().getPluginManager().registerEvents(new Menu(), this);
 
 		logger.info(versionText() + " enabled");
 

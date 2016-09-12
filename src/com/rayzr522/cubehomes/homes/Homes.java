@@ -28,6 +28,11 @@ public class Homes {
 		} else {
 			for (String key : section.getKeys(false)) {
 				ConfigurationSection homeSection = section.getConfigurationSection(key);
+				Home home = new Home(homeSection);
+				if (!home.isValid()) {
+					System.err.println("Invalid home for key '" + key + "'");
+					continue;
+				}
 				homes.add(new Home(homeSection));
 			}
 		}

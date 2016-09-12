@@ -19,6 +19,8 @@ public class Config {
 
 	public static String	PERM_CUBEHOMES	= "";
 
+	public static String	GUI_NAME		= "";
+
 	// Load all values from the config file
 	public static void load(CubeHomes plugin) {
 
@@ -39,6 +41,8 @@ public class Config {
 		// Misc. permissions
 		PERM_CUBEHOMES = config.getString("permissions.cubehomes");
 		PERM_OTHERS = config.getString("permissions.others");
+
+		GUI_NAME = TextUtils.colorize(config.getString("gui-name"));
 
 	}
 
