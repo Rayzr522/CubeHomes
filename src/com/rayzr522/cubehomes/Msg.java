@@ -12,13 +12,17 @@ import org.bukkit.entity.Player;
 
 public class Msg {
 
-	private static HashMap<String, String> messages = new HashMap<String, String>();
+	// Change this if you want it to list the messages when they load
+	private static final boolean			DEBUG		= false;
+	private static HashMap<String, String>	messages	= new HashMap<String, String>();
 
 	public static void load(YamlConfiguration config) {
 
 		messages.clear();
 
-		System.out.println("Loading messages:");
+		if (DEBUG) {
+			System.out.println("Loading messages:");
+		}
 
 		for (String key : config.getKeys(true)) {
 
@@ -48,7 +52,9 @@ public class Msg {
 
 			}
 
-			System.out.println(entry.getKey() + " - " + msg);
+			if (DEBUG) {
+				System.out.println(entry.getKey() + " - " + msg);
+			}
 			messages.put(entry.getKey(), msg);
 
 		}

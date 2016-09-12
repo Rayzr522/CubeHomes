@@ -2,9 +2,7 @@
 package com.rayzr522.cubehomes.warps;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -14,8 +12,7 @@ import com.rayzr522.cubehomes.TextUtils;
 
 public class Warps {
 
-	private static List<Warp>				warps	= new ArrayList<Warp>();
-	private static HashMap<UUID, Boolean>	players	= new HashMap<UUID, Boolean>();
+	private static List<Warp> warps = new ArrayList<Warp>();
 
 	public static void load(YamlConfiguration config) {
 
@@ -37,25 +34,17 @@ public class Warps {
 			}
 		}
 
-		section = config.getConfigurationSection("players");
-		// If there's no section then there's no point trying to load
-		if (section == null) {
-			config.createSection("players");
-		} else {
-			for (String key : section.getKeys(false)) {
-				players.put(UUID.fromString(key), section.getBoolean(key));
-			}
-		}
-
 	}
 
 	public static YamlConfiguration save() {
 
 		YamlConfiguration config = new YamlConfiguration();
 
+		ConfigurationSection warpsSection = config.createSection("warps");
+
 		for (Warp warp : warps) {
 
-			config.set(TextUtils.safeString(warp.getName()), warp);
+			warpsSection.set(TextUtils.safeString(warp.getName()), warp.serialize());
 
 		}
 
@@ -83,7 +72,7 @@ public class Warps {
 	public static boolean update(Player player, String name) {
 		Warp warp = get(name);
 		if (warp == null) { return false; }
-		return update(player, name);
+		return update(player, warp);
 	}
 
 	public static boolean update(Player player, Warp warp) {
@@ -110,21 +99,6 @@ public class Warps {
 		return warps;
 	}
 
-	public static boolean isAccessible(UUID id) {
-		if (!players.containsKey(id)) {
-			players.put(id, true);
-		}
-		return players.get(id);
-	}
-
-	public static boolean setAccessible(UUID id, boolean accessible) {
-		return players.put(id, accessible);
-	}
-
-	public static boolean toggleAccessibility(Player p) {
-		return setAccessible(p.getUniqueId(), !isAccessible(p.getUniqueId()));
-	}
-
 	public static List<Warp> getForPage(int page) {
 		int offset = page * 28;
 		List<Warp> _warps = new ArrayList<Warp>();
@@ -142,6 +116,10 @@ public class Warps {
 
 		return _warps;
 
+	}
+
+	public static Warp getForIndex(int i) {
+		return warps.get(i);
 	}
 
 }

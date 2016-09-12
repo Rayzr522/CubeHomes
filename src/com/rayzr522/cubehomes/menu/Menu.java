@@ -14,13 +14,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.rayzr522.cubehomes.Color;
+import com.rayzr522.cubehomes.Msg;
 import com.rayzr522.cubehomes.TextUtils;
+import com.rayzr522.cubehomes.warps.Warp;
+import com.rayzr522.cubehomes.warps.Warps;
 
 public class Menu implements Listener {
 
-	public static final ItemStack	BUTTON_PREV		= button(Material.STAINED_GLASS_PANE, Color.LIME, "&a&lPrevious Page", "&7&oTakes you to the previous page");
+	public static final ItemStack	BUTTON_PREV		= button(Material.STAINED_GLASS_PANE, Color.RED, "&cPrevious Page", "&7&oTakes you to the previous page");
 	public static final ItemStack	BUTTON_CLOSE	= button(Material.REDSTONE_BLOCK, 0, "&cClose", "&7&oCloses the menu");
-	public static final ItemStack	BUTTON_NEXT		= button(Material.STAINED_GLASS_PANE, Color.LIME, "&a&lNext Page", "&7&oTakes you to the next page");
+	public static final ItemStack	BUTTON_NEXT		= button(Material.STAINED_GLASS_PANE, Color.RED, "&cNext Page", "&7&oTakes you to the next page");
 
 	public static ItemStack button(Material type, int data, String name, String... lore) {
 
@@ -51,10 +54,43 @@ public class Menu implements Listener {
 
 		if (!(e.getInventory().getHolder() instanceof MenuHolder)) { return; }
 
-		// MenuHolder holder = (MenuHolder) e.getInventory().getHolder();
+		e.setCancelled(true);
 
-		System.out.println(e.getSlot());
-		System.out.println(e.getRawSlot());
+		if (!(e.getWhoClicked() instanceof Player)) { return; }
+
+		Player p = (Player) e.getWhoClicked();
+
+		if (e.getRawSlot() >= 54) { return; }
+
+		if (e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR) { return; }
+
+		MenuHolder holder = (MenuHolder) e.getInventory().getHolder();
+
+		if (e.getCurrentItem().equals(BUTTON_PREV)) {
+
+			e.getWhoClicked().closeInventory();
+
+		} else if (e.getCurrentItem().equals(BUTTON_CLOSE)) {
+
+			e.getWhoClicked().closeInventory();
+
+		} else if (e.getCurrentItem().equals(BUTTON_NEXT)) {
+
+			e.getWhoClicked().closeInventory();
+
+		} else {
+
+			int slot = e.getRawSlot();
+			int x = slot % 9 - 1;
+			int y = slot / 9 - 1;
+
+			Warp warp = Warps.getForIndex(holder.getPage() * 28 + x + y * 7);
+			if (warp == null) { return; }
+
+			warp.tp(p);
+			Msg.send(p, "teleporting-warp", warp.getName());
+
+		}
 
 	}
 

@@ -18,7 +18,7 @@ public class ConfigUtils {
 
 	public static String toString(Location loc) {
 
-		return toString(loc.getWorld()) + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getPitch() + ":" + loc.getYaw();
+		return toString(loc.getWorld()) + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getYaw() + ":" + loc.getPitch();
 
 	}
 

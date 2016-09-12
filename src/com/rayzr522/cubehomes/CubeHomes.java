@@ -8,12 +8,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.rayzr522.cubehomes.homes.CommandDelHome;
 import com.rayzr522.cubehomes.homes.CommandHome;
 import com.rayzr522.cubehomes.homes.CommandSetHome;
+import com.rayzr522.cubehomes.homes.Home;
 import com.rayzr522.cubehomes.homes.Homes;
 import com.rayzr522.cubehomes.menu.Menu;
 import com.rayzr522.cubehomes.warps.CommandDelWarp;
 import com.rayzr522.cubehomes.warps.CommandSetWarp;
 import com.rayzr522.cubehomes.warps.CommandWarp;
 import com.rayzr522.cubehomes.warps.CommandWarpIcon;
+import com.rayzr522.cubehomes.warps.Warp;
 import com.rayzr522.cubehomes.warps.Warps;
 
 public class CubeHomes extends JavaPlugin {
@@ -25,6 +27,9 @@ public class CubeHomes extends JavaPlugin {
 	public void onEnable() {
 
 		logger = getLogger();
+
+		System.out.println("Forcing class load: " + Warp.class.getCanonicalName());
+		System.out.println("Forcing class load: " + Home.class.getCanonicalName());
 
 		cm = new ConfigManager(this);
 

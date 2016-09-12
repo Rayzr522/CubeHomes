@@ -4,6 +4,7 @@ package com.rayzr522.cubehomes.homes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.bukkit.configuration.ConfigurationSection;
@@ -53,9 +54,18 @@ public class Homes {
 
 		YamlConfiguration config = new YamlConfiguration();
 
+		ConfigurationSection homesSection = config.createSection("homes");
+		ConfigurationSection playersSection = config.createSection("players");
+
 		for (Home home : homes) {
 
-			config.set(TextUtils.safeString(home.getName()), home);
+			homesSection.set(TextUtils.safeString(home.getName()), home.serialize());
+
+		}
+
+		for (Entry<UUID, Boolean> entry : players.entrySet()) {
+
+			playersSection.set(entry.getKey().toString(), entry.getValue());
 
 		}
 
@@ -91,7 +101,7 @@ public class Homes {
 	public static boolean update(Player player, String name) {
 		Home home = get(name);
 		if (home == null) { return false; }
-		return update(player, name);
+		return update(player, home);
 	}
 
 	public static boolean update(Player player, Home home) {

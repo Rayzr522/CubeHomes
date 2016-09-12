@@ -10,6 +10,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import com.rayzr522.cubehomes.Config;
+import com.rayzr522.cubehomes.TextUtils;
 import com.rayzr522.cubehomes.warps.Warp;
 import com.rayzr522.cubehomes.warps.Warps;
 
@@ -39,10 +40,14 @@ public class MenuHolder implements InventoryHolder {
 				continue;
 			}
 
-			setItem(i % 7, i / 7, Menu.button(warp.getIconType(), warp.getIconData(), "&a&l" + warp.getName()));
+			setItem(1 + i % 7, 1 + i / 7, Menu.button(warp.getIconType(), warp.getIconData(), "&a&l" + TextUtils.capitalize(warp.getName())));
 
 		}
 
+	}
+
+	public int getPage() {
+		return page;
 	}
 
 	public void setItem(int x, int y, ItemStack item) {
@@ -51,7 +56,7 @@ public class MenuHolder implements InventoryHolder {
 
 	@Override
 	public Inventory getInventory() {
-		return null;
+		return inv;
 	}
 
 }

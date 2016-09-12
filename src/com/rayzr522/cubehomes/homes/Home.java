@@ -91,7 +91,7 @@ public class Home implements ConfigurationSerializable {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		map.put("owner", id);
+		map.put("owner", id.toString());
 		map.put("name", name);
 		map.put("pos", ConfigUtils.toString(location));
 

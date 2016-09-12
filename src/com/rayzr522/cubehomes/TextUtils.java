@@ -39,4 +39,31 @@ public class TextUtils {
 		return UNSAFE_CHARS.matcher(text.toLowerCase(Locale.ENGLISH)).replaceAll("_");
 	}
 
+	public static String capitalize(String line) {
+
+		if (line == null || line.trim().isEmpty()) { return ""; }
+
+		line = line.trim();
+
+		if (line.indexOf(' ') == -1) { return _capitalize(line); }
+
+		String[] split = line.split(" ");
+		String output = _capitalize(split[0]);
+
+		for (int i = 1; i < split.length; i++) {
+			output += " " + _capitalize(split[i]);
+		}
+
+		return output;
+
+	}
+
+	private static String _capitalize(String word) {
+
+		if (word == null || word.trim().isEmpty()) { return ""; }
+		if (word.length() == 1) { return word.toUpperCase(); }
+		return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+
+	}
+
 }

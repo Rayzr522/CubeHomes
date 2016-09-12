@@ -44,7 +44,7 @@ public class CommandWarp implements CommandExecutor {
 
 		}
 
-		Msg.send(sender, "teleporting", warp.getName());
+		Msg.send(sender, "teleporting-warp", warp.getName());
 		warp.tp(p);
 
 		return true;

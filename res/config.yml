@@ -15,4 +15,4 @@ permissions:
     delwarp: "CubeHomes.delhome"
     cubehomes: "CubeHomes.admin"
 
-gui-name: "&8&m----&c Warps Menu &8&m----"
+gui-name: "&8&m----&4 Warps Menu &8&m----"

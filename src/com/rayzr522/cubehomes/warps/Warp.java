@@ -101,4 +101,8 @@ public class Warp implements ConfigurationSerializable {
 
 	}
 
+	public static Class<?> forceClassLoad() {
+		return Warp.class;
+	}
+
 }
