@@ -37,7 +37,7 @@ public class CommandWarp implements CommandExecutor {
 
 		Warp warp = Warps.get(args[0]);
 
-		if (warp == null || warp.getWorld() != p.getWorld()) {
+		if (warp == null || (Config.PER_WORLD_WARPS && warp.getWorld() != p.getWorld())) {
 
 			Msg.send(sender, "unknown-warp", args[0]);
 			return true;

@@ -122,4 +122,8 @@ public class Warps {
 		return warps.get(i);
 	}
 
+	public static int maxPage() {
+		return warps.size() / 28;
+	}
+
 }

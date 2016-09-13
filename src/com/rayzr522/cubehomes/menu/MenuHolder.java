@@ -36,7 +36,7 @@ public class MenuHolder implements InventoryHolder {
 		for (int i = 0; i < warps.size(); i++) {
 
 			Warp warp = warps.get(i);
-			if (warp.getWorld() != player.getWorld()) {
+			if (Config.PER_WORLD_WARPS && warp.getWorld() != player.getWorld()) {
 				continue;
 			}
 

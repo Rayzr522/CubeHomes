@@ -70,6 +70,11 @@ public class Menu implements Listener {
 
 			e.getWhoClicked().closeInventory();
 
+			int page = holder.getPage();
+			if (page <= 0) { return; }
+
+			p.openInventory(Menu.create(p, page - 1));
+
 		} else if (e.getCurrentItem().equals(BUTTON_CLOSE)) {
 
 			e.getWhoClicked().closeInventory();
@@ -77,6 +82,11 @@ public class Menu implements Listener {
 		} else if (e.getCurrentItem().equals(BUTTON_NEXT)) {
 
 			e.getWhoClicked().closeInventory();
+
+			int page = holder.getPage();
+			if (page >= Warps.maxPage()) { return; }
+
+			p.openInventory(Menu.create(p, page + 1));
 
 		} else {
 

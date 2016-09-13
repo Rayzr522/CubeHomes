@@ -19,6 +19,7 @@ public class Config {
 
 	public static String	PERM_CUBEHOMES	= "";
 
+	public static boolean	PER_WORLD_WARPS	= true;
 	public static String	GUI_NAME		= "";
 
 	// Load all values from the config file
@@ -42,6 +43,7 @@ public class Config {
 		PERM_CUBEHOMES = config.getString("permissions.cubehomes");
 		PERM_OTHERS = config.getString("permissions.others");
 
+		PER_WORLD_WARPS = config.getBoolean("per-world-warps");
 		GUI_NAME = TextUtils.colorize(config.getString("gui-name"));
 
 	}
