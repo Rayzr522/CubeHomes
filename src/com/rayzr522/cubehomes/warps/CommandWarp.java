@@ -12,49 +12,49 @@ import com.rayzr522.cubehomes.menu.Menu;
 
 public class CommandWarp implements CommandExecutor {
 
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		if (!(sender instanceof Player)) {
-			Msg.send(sender, "only-players");
-			return true;
-		}
+        if (!(sender instanceof Player)) {
+            Msg.send(sender, "only-players");
+            return true;
+        }
 
-		Player p = (Player) sender;
+        Player p = (Player) sender;
 
-		if (!p.hasPermission(Config.PERM_WARP)) {
+        if (!p.hasPermission(Config.PERM_WARP)) {
 
-			Msg.send(p, "no-permission");
-			return true;
+            Msg.send(p, "no-permission");
+            return true;
 
-		}
+        }
 
-		if (args.length < 1) {
+        if (args.length < 1) {
 
-			openMenu(p);
-			return true;
+            openMenu(p);
+            return true;
 
-		}
+        }
 
-		Warp warp = Warps.get(args[0]);
+        Warp warp = Warps.get(args[0]);
 
-		if (warp == null || (Config.PER_WORLD_WARPS && warp.getWorld() != p.getWorld())) {
+        if (warp == null || (Config.PER_WORLD_WARPS && warp.getWorld() != p.getWorld())) {
 
-			Msg.send(sender, "unknown-warp", args[0]);
-			return true;
+            Msg.send(sender, "unknown-warp", args[0]);
+            return true;
 
-		}
+        }
 
-		Msg.send(sender, "teleporting-warp", warp.getName());
-		warp.tp(p);
+        Msg.send(sender, "teleporting-warp", warp.getName());
+        warp.tp(p);
 
-		return true;
+        return true;
 
-	}
+    }
 
-	private void openMenu(Player p) {
+    private void openMenu(Player p) {
 
-		p.openInventory(Menu.create(p, 0));
+        p.openInventory(Menu.create(p, 0));
 
-	}
+    }
 
 }

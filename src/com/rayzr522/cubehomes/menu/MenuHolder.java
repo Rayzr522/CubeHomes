@@ -16,47 +16,47 @@ import com.rayzr522.cubehomes.warps.Warps;
 
 public class MenuHolder implements InventoryHolder {
 
-	private int			page;
-	private Inventory	inv;
+    private int       page;
+    private Inventory inv;
 
-	public MenuHolder(int page, Player player) {
-		inv = Bukkit.createInventory(this, 54, Config.GUI_NAME);
-		this.page = page;
-		init(player);
-	}
+    public MenuHolder(int page, Player player) {
+        inv = Bukkit.createInventory(this, 54, Config.GUI_NAME);
+        this.page = page;
+        init(player);
+    }
 
-	private void init(Player player) {
+    private void init(Player player) {
 
-		setItem(3, 5, Menu.BUTTON_PREV);
-		setItem(4, 5, Menu.BUTTON_CLOSE);
-		setItem(5, 5, Menu.BUTTON_NEXT);
+        setItem(3, 5, Menu.BUTTON_PREV);
+        setItem(4, 5, Menu.BUTTON_CLOSE);
+        setItem(5, 5, Menu.BUTTON_NEXT);
 
-		List<Warp> warps = Warps.getForPage(page);
+        List<Warp> warps = Warps.getForPage(page);
 
-		for (int i = 0; i < warps.size(); i++) {
+        for (int i = 0; i < warps.size(); i++) {
 
-			Warp warp = warps.get(i);
-			if (Config.PER_WORLD_WARPS && warp.getWorld() != player.getWorld()) {
-				continue;
-			}
+            Warp warp = warps.get(i);
+            if (Config.PER_WORLD_WARPS && warp.getWorld() != player.getWorld()) {
+                continue;
+            }
 
-			setItem(1 + i % 7, 1 + i / 7, Menu.button(warp.getIconType(), warp.getIconData(), "&a&l" + TextUtils.capitalize(warp.getName())));
+            setItem(1 + i % 7, 1 + i / 7, Menu.button(warp.getIconType(), warp.getIconData(), "&a&l" + TextUtils.capitalize(warp.getName())));
 
-		}
+        }
 
-	}
+    }
 
-	public int getPage() {
-		return page;
-	}
+    public int getPage() {
+        return page;
+    }
 
-	public void setItem(int x, int y, ItemStack item) {
-		inv.setItem(x + y * 9, item);
-	}
+    public void setItem(int x, int y, ItemStack item) {
+        inv.setItem(x + y * 9, item);
+    }
 
-	@Override
-	public Inventory getInventory() {
-		return inv;
-	}
+    @Override
+    public Inventory getInventory() {
+        return inv;
+    }
 
 }

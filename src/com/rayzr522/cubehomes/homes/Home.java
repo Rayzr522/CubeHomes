@@ -14,89 +14,89 @@ import com.rayzr522.cubehomes.ConfigUtils;
 
 public class Home implements ConfigurationSerializable {
 
-	private UUID		id;
-	private String		name;
-	private Location	location;
-	private boolean		isValid	= false;
+    private UUID     id;
+    private String   name;
+    private Location location;
+    private boolean  isValid = false;
 
-	public Home(Player p, String name) {
+    public Home(Player p, String name) {
 
-		this.id = p.getUniqueId();
-		this.name = name;
-		this.location = p.getLocation();
+        this.id = p.getUniqueId();
+        this.name = name;
+        this.location = p.getLocation();
 
-		isValid = true;
+        isValid = true;
 
-	}
+    }
 
-	public Home(ConfigurationSection section) {
+    public Home(ConfigurationSection section) {
 
-		id = UUID.fromString(section.getString("owner"));
-		name = section.getString("name");
-		location = ConfigUtils.location(section.getString("pos"));
+        id = UUID.fromString(section.getString("owner"));
+        name = section.getString("name");
+        location = ConfigUtils.location(section.getString("pos"));
 
-		if (location != null) {
-			isValid = true;
-		}
+        if (location != null) {
+            isValid = true;
+        }
 
-	}
+    }
 
-	public boolean isValid() {
-		return isValid;
-	}
+    public boolean isValid() {
+        return isValid;
+    }
 
-	public void tp(Player player) {
-		player.teleport(location);
-	}
+    public void tp(Player player) {
+        player.teleport(location);
+    }
 
-	public UUID getId() {
-		return id;
-	}
+    public UUID getId() {
+        return id;
+    }
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Location getLocation() {
-		return location;
-	}
+    public Location getLocation() {
+        return location;
+    }
 
-	public void setLocation(Location location) {
-		this.location = location;
-	}
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
-	public boolean isAccessible() {
-		return Homes.isAccessible(id);
-	}
+    public boolean isAccessible() {
+        return Homes.isAccessible(id);
+    }
 
-	@Override
-	public String toString() {
-		return "Home [id=" + id + ", name=" + name + ", location=" + location + ", isValid=" + isValid + "]";
-	}
+    @Override
+    public String toString() {
+        return "Home [id=" + id + ", name=" + name + ", location=" + location + ", isValid=" + isValid + "]";
+    }
 
-	public boolean isOwner(Player p) {
-		return p.getUniqueId() == id;
-	}
+    public boolean isOwner(Player p) {
+        return p.getUniqueId() == id;
+    }
 
-	@Override
-	public Map<String, Object> serialize() {
+    @Override
+    public Map<String, Object> serialize() {
 
-		Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<String, Object>();
 
-		map.put("owner", id.toString());
-		map.put("name", name);
-		map.put("pos", ConfigUtils.toString(location));
+        map.put("owner", id.toString());
+        map.put("name", name);
+        map.put("pos", ConfigUtils.toString(location));
 
-		return map;
+        return map;
 
-	}
+    }
 
 }

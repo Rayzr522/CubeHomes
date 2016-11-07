@@ -11,46 +11,46 @@ import com.rayzr522.cubehomes.Msg;
 
 public class CommandDelWarp implements CommandExecutor {
 
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		if (!(sender instanceof Player)) {
-			Msg.send(sender, "only-players");
-			return true;
-		}
+        if (!(sender instanceof Player)) {
+            Msg.send(sender, "only-players");
+            return true;
+        }
 
-		Player p = (Player) sender;
+        Player p = (Player) sender;
 
-		if (!p.hasPermission(Config.PERM_DELWARP)) {
+        if (!p.hasPermission(Config.PERM_DELWARP)) {
 
-			Msg.send(p, "no-permission");
-			return true;
+            Msg.send(p, "no-permission");
+            return true;
 
-		}
+        }
 
-		if (args.length < 1) {
+        if (args.length < 1) {
 
-			Msg.send(p, "usage.delwarp");
-			return true;
+            Msg.send(p, "usage.delwarp");
+            return true;
 
-		}
+        }
 
-		Warp warp = Warps.get(args[0]);
+        Warp warp = Warps.get(args[0]);
 
-		if (warp == null) {
+        if (warp == null) {
 
-			Msg.send(sender, "unknown-warp", args[0]);
-			return true;
+            Msg.send(sender, "unknown-warp", args[0]);
+            return true;
 
-		}
+        }
 
-		if (!Warps.del(warp)) {
-			Msg.send(p, "error");
-		}
+        if (!Warps.del(warp)) {
+            Msg.send(p, "error");
+        }
 
-		Msg.send(sender, "warp-deleted", args[0]);
+        Msg.send(sender, "warp-deleted", args[0]);
 
-		return true;
+        return true;
 
-	}
+    }
 
 }
