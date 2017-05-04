@@ -51,7 +51,6 @@ public class Menu implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-
         if (!(e.getInventory().getHolder() instanceof MenuHolder)) {
             return;
         }

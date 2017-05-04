@@ -1,22 +1,20 @@
-
 package com.rayzr522.cubehomes.menu;
 
-import java.util.List;
-
+import com.rayzr522.cubehomes.Config;
+import com.rayzr522.cubehomes.TextUtils;
+import com.rayzr522.cubehomes.warps.Warp;
+import com.rayzr522.cubehomes.warps.Warps;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import com.rayzr522.cubehomes.Config;
-import com.rayzr522.cubehomes.TextUtils;
-import com.rayzr522.cubehomes.warps.Warp;
-import com.rayzr522.cubehomes.warps.Warps;
+import java.util.List;
 
 public class MenuHolder implements InventoryHolder {
 
-    private int       page;
+    private int page;
     private Inventory inv;
 
     public MenuHolder(int page, Player player) {
@@ -26,24 +24,17 @@ public class MenuHolder implements InventoryHolder {
     }
 
     private void init(Player player) {
-
         setItem(3, 5, Menu.BUTTON_PREV);
         setItem(4, 5, Menu.BUTTON_CLOSE);
         setItem(5, 5, Menu.BUTTON_NEXT);
 
-        List<Warp> warps = Warps.getForPage(page);
+        List<Warp> warps = Warps.getForPage(player, page);
 
         for (int i = 0; i < warps.size(); i++) {
-
             Warp warp = warps.get(i);
-            if (Config.PER_WORLD_WARPS && warp.getWorld() != player.getWorld()) {
-                continue;
-            }
 
             setItem(1 + i % 7, 1 + i / 7, Menu.button(warp.getIconType(), warp.getIconData(), "&a&l" + TextUtils.capitalize(warp.getName())));
-
         }
-
     }
 
     public int getPage() {

@@ -1,9 +1,7 @@
-
 package com.rayzr522.cubehomes.warps;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.rayzr522.cubehomes.Config;
+import com.rayzr522.cubehomes.ConfigUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -11,15 +9,16 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
 
-import com.rayzr522.cubehomes.ConfigUtils;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Warp implements ConfigurationSerializable {
 
-    private String   name;
+    private String name;
     private Location location;
-    private boolean  isValid  = false;
+    private boolean isValid = false;
     private Material iconType = Material.EMERALD;
-    private int      iconData = 0;
+    private int iconData = 0;
 
     public Warp(String name, Location location) {
 
@@ -44,6 +43,10 @@ public class Warp implements ConfigurationSerializable {
             isValid = true;
         }
 
+    }
+
+    public static Class<?> forceClassLoad() {
+        return Warp.class;
     }
 
     public boolean isValid() {
@@ -101,8 +104,7 @@ public class Warp implements ConfigurationSerializable {
 
     }
 
-    public static Class<?> forceClassLoad() {
-        return Warp.class;
+    public boolean hasPermission(Player player) {
+        return player.hasPermission(String.format("%s.%s", Config.PERM_WARP, name));
     }
-
 }

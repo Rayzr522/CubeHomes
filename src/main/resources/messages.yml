@@ -20,7 +20,8 @@ item:
     invalid-type: "&cInvalid item type! ({0})"
 
 only-players: "&cOnly players can use this command!"
-no-permission: "&cYou don't have permission to do that"
+no-permission: "&cYou don't have permission to do that!"
+no-permission-warp: "&cYou don't have permission to use that warp!"
 error: "&cSomething went wrong! Please find an Admin and tell them contact Rayzr522 on the Bukkit forums."
 unknown-home: "&cThe home '{0}' is unknown"
 unknown-warp: "&cThe warp '{0}' is unknown"

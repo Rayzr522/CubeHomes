@@ -17,7 +17,6 @@ import com.rayzr522.cubehomes.TextUtils;
 public class CommandWarpIcon implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
         if (!(sender instanceof Player)) {
             Msg.send(sender, "only-players");
             return true;
@@ -26,17 +25,13 @@ public class CommandWarpIcon implements CommandExecutor {
         Player p = (Player) sender;
 
         if (!p.hasPermission(Config.PERM_WARPICON)) {
-
             Msg.send(p, "no-permission");
             return true;
-
         }
 
         if (args.length < 2) {
-
             Msg.send(p, "usage.warpicon");
             return true;
-
         }
 
         Warp warp = Warps.get(args[0]);

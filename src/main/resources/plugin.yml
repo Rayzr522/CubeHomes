@@ -1,6 +1,6 @@
 name: CubeHomes
 main: com.rayzr522.cubehomes.CubeHomes
-version: 0.1
+version: 1.0.0
 description: Customizable homes plugin
 commands:
   home:

@@ -1,14 +1,14 @@
-
 package com.rayzr522.cubehomes.warps;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.rayzr522.cubehomes.Config;
+import com.rayzr522.cubehomes.TextUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import com.rayzr522.cubehomes.TextUtils;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Warps {
 
@@ -85,47 +85,34 @@ public class Warps {
     }
 
     public static boolean del(String name) {
-
         Warp warp = get(name);
         if (warp == null) {
             return false;
         }
         return del(warp);
-
     }
 
     public static boolean del(Warp warp) {
-
-        if (warps.remove(warp)) {
-            return true;
-        }
-        return false;
-
+        return warps.remove(warp);
     }
 
     public static List<Warp> all() {
         return warps;
     }
 
-    public static List<Warp> getForPage(int page) {
+    public static List<Warp> getForPage(Player player, int page) {
+        List<Warp> filtered = warps.stream()
+                .filter(warp -> warp.hasPermission(player))
+                .filter(warp -> !Config.PER_WORLD_WARPS || warp.getWorld() == player.getWorld())
+                .collect(Collectors.toList());
+
         int offset = page * 28;
-        List<Warp> _warps = new ArrayList<Warp>();
-        if (offset >= warps.size()) {
-            return _warps;
+
+        if (offset >= filtered.size()) {
+            return new ArrayList<>();
         }
 
-        for (int i = 0; i < 28; i++) {
-
-            if (offset + i >= warps.size()) {
-                break;
-            }
-
-            _warps.add(warps.get(i));
-
-        }
-
-        return _warps;
-
+        return filtered.subList(offset, Math.min(offset + 28, filtered.size()));
     }
 
     public static Warp getForIndex(int i) {
