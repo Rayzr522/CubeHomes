@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import com.rayzr522.cubehomes.Config;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -109,9 +110,10 @@ public class Homes {
     }
 
     public static boolean update(Player player, Home home) {
-        if (!home.isOwner(player)) {
+        if (!home.isOwner(player) && !player.hasPermission(Config.PERM_OTHERS)) {
             return false;
         }
+
         home.setLocation(player.getLocation());
         return true;
     }
