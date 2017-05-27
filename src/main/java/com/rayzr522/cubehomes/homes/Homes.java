@@ -1,5 +1,10 @@
-
 package com.rayzr522.cubehomes.homes;
+
+import com.rayzr522.cubehomes.Config;
+import com.rayzr522.cubehomes.TextUtils;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,20 +12,11 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 
-import com.rayzr522.cubehomes.Config;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-
-import com.rayzr522.cubehomes.TextUtils;
-
 public class Homes {
-
-    private static List<Home>             homes   = new ArrayList<Home>();
+    private static List<Home> homes = new ArrayList<Home>();
     private static HashMap<UUID, Boolean> players = new HashMap<UUID, Boolean>();
 
     public static void load(YamlConfiguration config) {
-
         homes.clear();
 
         ConfigurationSection section = config.getConfigurationSection("homes");
@@ -48,11 +44,9 @@ public class Homes {
                 players.put(UUID.fromString(key), section.getBoolean(key));
             }
         }
-
     }
 
     public static YamlConfiguration save() {
-
         YamlConfiguration config = new YamlConfiguration();
 
         ConfigurationSection homesSection = config.createSection("homes");
@@ -71,7 +65,6 @@ public class Homes {
         }
 
         return config;
-
     }
 
     public static List<Home> get(Player p) {

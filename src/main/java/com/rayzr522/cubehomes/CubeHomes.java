@@ -1,26 +1,15 @@
-
 package com.rayzr522.cubehomes;
+
+import com.rayzr522.cubehomes.homes.*;
+import com.rayzr522.cubehomes.menu.Menu;
+import com.rayzr522.cubehomes.warps.*;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
-import com.rayzr522.cubehomes.homes.CommandDelHome;
-import com.rayzr522.cubehomes.homes.CommandHome;
-import com.rayzr522.cubehomes.homes.CommandSetHome;
-import com.rayzr522.cubehomes.homes.Home;
-import com.rayzr522.cubehomes.homes.Homes;
-import com.rayzr522.cubehomes.menu.Menu;
-import com.rayzr522.cubehomes.warps.CommandDelWarp;
-import com.rayzr522.cubehomes.warps.CommandSetWarp;
-import com.rayzr522.cubehomes.warps.CommandWarp;
-import com.rayzr522.cubehomes.warps.CommandWarpIcon;
-import com.rayzr522.cubehomes.warps.Warp;
-import com.rayzr522.cubehomes.warps.Warps;
-
 public class CubeHomes extends JavaPlugin {
 
-    private Logger        logger;
+    private Logger logger;
     private ConfigManager cm;
 
     @Override
@@ -36,6 +25,7 @@ public class CubeHomes extends JavaPlugin {
         load();
 
         getCommand("home").setExecutor(new CommandHome());
+        getCommand("homes").setExecutor(new CommandHomes());
         getCommand("sethome").setExecutor(new CommandSetHome());
         getCommand("delhome").setExecutor(new CommandDelHome());
 
@@ -47,8 +37,6 @@ public class CubeHomes extends JavaPlugin {
         getCommand("cubehomes").setExecutor(new CommandCubeHomes(this));
 
         getServer().getPluginManager().registerEvents(new Menu(), this);
-
-        logger.info(versionText() + " enabled");
 
     }
 

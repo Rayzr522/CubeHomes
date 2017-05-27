@@ -1,23 +1,20 @@
-
 package com.rayzr522.cubehomes;
+
+import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-
 public class Msg {
-
     // Change this if you want it to list the messages when they load
-    private static final boolean           DEBUG    = false;
+    private static final boolean DEBUG = false;
     private static HashMap<String, String> messages = new HashMap<String, String>();
 
     public static void load(YamlConfiguration config) {
-
         messages.clear();
 
         if (DEBUG) {
@@ -55,26 +52,22 @@ public class Msg {
             if (DEBUG) {
                 System.out.println(entry.getKey() + " - " + msg);
             }
+
             messages.put(entry.getKey(), msg);
-
         }
-
     }
 
-    public static void send(Player p, String key, String... strings) {
+    public static void send(Player player, String key, String... objects) {
+        String output = get(key);
 
-        String msg = get(key);
-
-        for (int i = 0; i < strings.length; i++) {
-            msg = msg.replace("{" + i + "}", strings[i]);
+        for (int i = 0; i < objects.length; i++) {
+            output = output.replace("{" + i + "}", objects[i]);
         }
 
-        p.sendMessage(msg);
-
+        player.sendMessage(output);
     }
 
     public static void send(CommandSender sender, String key, String... strings) {
-
         String msg = get(key);
 
         for (int i = 0; i < strings.length; i++) {
@@ -82,13 +75,14 @@ public class Msg {
         }
 
         sender.sendMessage(msg);
-
     }
 
     public static String get(String key) {
+        if (!messages.containsKey(key)) {
+            return key;
+        }
 
-        return messages.containsKey(key) ? TextUtils.colorize(messages.get(key)) : key;
-
+        return TextUtils.colorize(messages.get(key));
     }
 
 }

@@ -40,7 +40,7 @@ public class CommandSetHome implements CommandExecutor {
             } else {
                 Msg.send(p, "home-set", args[0]);
             }
-            
+
         } else if (numHomes(p) > 0 && (!p.hasPermission(Config.PERM_MORE) || !p.hasPermission(Config.PERM_MORE + "." + numHomes(p)))) {
             Msg.send(p, "max-homes", "" + numHomes(p));
         } else {

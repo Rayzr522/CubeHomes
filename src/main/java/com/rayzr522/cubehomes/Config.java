@@ -1,26 +1,26 @@
-
 package com.rayzr522.cubehomes;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class Config {
 
-    public static String  PERM_MORE       = "";
-    public static String  PERM_OTHERS     = "";
+    public static String PERM_MORE = "";
+    public static String PERM_OTHERS = "";
 
-    public static String  PERM_HOME       = "";
-    public static String  PERM_SETHOME    = "";
-    public static String  PERM_DELHOME    = "";
+    public static String PERM_HOME = "";
+    public static String PERM_LIST_HOMES = "";
+    public static String PERM_SETHOME = "";
+    public static String PERM_DELHOME = "";
 
-    public static String  PERM_WARP       = "";
-    public static String  PERM_SETWARP    = "";
-    public static String  PERM_WARPICON   = "";
-    public static String  PERM_DELWARP    = "";
+    public static String PERM_WARP = "";
+    public static String PERM_SETWARP = "";
+    public static String PERM_WARPICON = "";
+    public static String PERM_DELWARP = "";
 
-    public static String  PERM_CUBEHOMES  = "";
+    public static String PERM_CUBEHOMES = "";
 
     public static boolean PER_WORLD_WARPS = true;
-    public static String  GUI_NAME        = "";
+    public static String GUI_NAME = "";
 
     // Load all values from the config file
     public static void load(CubeHomes plugin) {
@@ -29,6 +29,7 @@ public class Config {
 
         // All the home-related permissions
         PERM_HOME = config.getString("permissions.home");
+        PERM_LIST_HOMES = config.getString("permissions.homes");
         PERM_SETHOME = config.getString("permissions.sethome");
         PERM_DELHOME = config.getString("permissions.delhome");
         PERM_MORE = config.getString("permissions.more");

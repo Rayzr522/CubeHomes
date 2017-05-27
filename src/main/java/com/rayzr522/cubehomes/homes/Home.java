@@ -1,36 +1,31 @@
-
 package com.rayzr522.cubehomes.homes;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
+import com.rayzr522.cubehomes.ConfigUtils;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
 
-import com.rayzr522.cubehomes.ConfigUtils;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class Home implements ConfigurationSerializable {
 
-    private UUID     id;
-    private String   name;
+    private UUID id;
+    private String name;
     private Location location;
-    private boolean  isValid = false;
+    private boolean isValid = false;
 
     public Home(Player p, String name) {
-
         this.id = p.getUniqueId();
         this.name = name;
         this.location = p.getLocation();
 
         isValid = true;
-
     }
 
     public Home(ConfigurationSection section) {
-
         id = UUID.fromString(section.getString("owner"));
         name = section.getString("name");
         location = ConfigUtils.location(section.getString("pos"));
@@ -38,7 +33,6 @@ public class Home implements ConfigurationSerializable {
         if (location != null) {
             isValid = true;
         }
-
     }
 
     public boolean isValid() {
@@ -88,7 +82,6 @@ public class Home implements ConfigurationSerializable {
 
     @Override
     public Map<String, Object> serialize() {
-
         Map<String, Object> map = new HashMap<String, Object>();
 
         map.put("owner", id.toString());
@@ -96,7 +89,6 @@ public class Home implements ConfigurationSerializable {
         map.put("pos", ConfigUtils.toString(location));
 
         return map;
-
     }
 
 }

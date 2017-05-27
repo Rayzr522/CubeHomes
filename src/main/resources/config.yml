@@ -7,6 +7,7 @@ permissions:
     more: "CubeHomes.more"
     others: "CubeHomes.others"
     home: "CubeHomes.home"
+    homes: "CubeHomes.homes"
     sethome: "CubeHomes.sethome"
     delhome: "CubeHomes.delhome"
     warp: "CubeHomes.warp"
