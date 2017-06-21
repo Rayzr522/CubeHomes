@@ -1,9 +1,10 @@
-
 package com.rayzr522.cubehomes.menu;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.rayzr522.cubehomes.Color;
+import com.rayzr522.cubehomes.Msg;
+import com.rayzr522.cubehomes.TextUtils;
+import com.rayzr522.cubehomes.warps.Warp;
+import com.rayzr522.cubehomes.warps.Warps;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,17 +14,14 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.rayzr522.cubehomes.Color;
-import com.rayzr522.cubehomes.Msg;
-import com.rayzr522.cubehomes.TextUtils;
-import com.rayzr522.cubehomes.warps.Warp;
-import com.rayzr522.cubehomes.warps.Warps;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Menu implements Listener {
 
-    public static final ItemStack BUTTON_PREV  = button(Material.STAINED_GLASS_PANE, Color.RED, "&cPrevious Page", "&7&oTakes you to the previous page");
+    public static final ItemStack BUTTON_PREV = button(Material.STAINED_GLASS_PANE, Color.RED, "&cPrevious Page", "&7&oTakes you to the previous page");
     public static final ItemStack BUTTON_CLOSE = button(Material.REDSTONE_BLOCK, 0, "&cClose", "&7&oCloses the menu");
-    public static final ItemStack BUTTON_NEXT  = button(Material.STAINED_GLASS_PANE, Color.RED, "&cNext Page", "&7&oTakes you to the next page");
+    public static final ItemStack BUTTON_NEXT = button(Material.STAINED_GLASS_PANE, Color.RED, "&cNext Page", "&7&oTakes you to the next page");
 
     public static ItemStack button(Material type, int data, String name, String... lore) {
 
@@ -104,15 +102,16 @@ public class Menu implements Listener {
             int slot = e.getRawSlot();
             int x = slot % 9 - 1;
             int y = slot / 9 - 1;
+            int index = x + y * 7;
 
-            Warp warp = Warps.getForIndex(holder.getPage() * 28 + x + y * 7);
-            if (warp == null) {
+            if (index >= holder.getWarps().size()) {
                 return;
             }
 
+            Warp warp = holder.getWarps().get(index);
+
             warp.tp(p);
             Msg.send(p, "teleporting-warp", warp.getName());
-
         }
 
     }

@@ -15,11 +15,14 @@ import java.util.List;
 public class MenuHolder implements InventoryHolder {
 
     private int page;
+    private List<Warp> warps;
     private Inventory inv;
 
     public MenuHolder(int page, Player player) {
-        inv = Bukkit.createInventory(this, 54, Config.GUI_NAME);
+        this.inv = Bukkit.createInventory(this, 54, Config.GUI_NAME);
         this.page = page;
+        this.warps = Warps.getForPage(player, page);
+
         init(player);
     }
 
@@ -28,8 +31,6 @@ public class MenuHolder implements InventoryHolder {
         setItem(4, 5, Menu.BUTTON_CLOSE);
         setItem(5, 5, Menu.BUTTON_NEXT);
 
-        List<Warp> warps = Warps.getForPage(player, page);
-
         for (int i = 0; i < warps.size(); i++) {
             Warp warp = warps.get(i);
 
@@ -37,12 +38,16 @@ public class MenuHolder implements InventoryHolder {
         }
     }
 
+    public void setItem(int x, int y, ItemStack item) {
+        inv.setItem(x + y * 9, item);
+    }
+
     public int getPage() {
         return page;
     }
 
-    public void setItem(int x, int y, ItemStack item) {
-        inv.setItem(x + y * 9, item);
+    public List<Warp> getWarps() {
+        return warps;
     }
 
     @Override
