@@ -3,7 +3,7 @@ package com.rayzr522.cubehomes;
 
 import java.util.List;
 
-import com.rayzr522.cubehomes.homes.Home;
+import com.rayzr522.cubehomes.data.Home;
 
 public class ArrayUtils {
 

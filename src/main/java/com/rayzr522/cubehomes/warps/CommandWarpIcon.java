@@ -3,6 +3,8 @@ package com.rayzr522.cubehomes.warps;
 
 import java.util.Arrays;
 
+import com.rayzr522.cubehomes.data.Warp;
+import com.rayzr522.cubehomes.data.WarpManager;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -34,7 +36,7 @@ public class CommandWarpIcon implements CommandExecutor {
             return true;
         }
 
-        Warp warp = Warps.get(args[0]);
+        Warp warp = WarpManager.get(args[0]);
         if (warp == null) {
             Msg.send(p, "unknown-warp", args[0]);
             return true;

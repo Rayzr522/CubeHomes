@@ -1,5 +1,9 @@
 package com.rayzr522.cubehomes;
 
+import com.rayzr522.cubehomes.data.Home;
+import com.rayzr522.cubehomes.data.HomeManager;
+import com.rayzr522.cubehomes.data.Warp;
+import com.rayzr522.cubehomes.data.WarpManager;
 import com.rayzr522.cubehomes.homes.*;
 import com.rayzr522.cubehomes.menu.Menu;
 import com.rayzr522.cubehomes.warps.*;
@@ -43,16 +47,16 @@ public class CubeHomes extends JavaPlugin {
     public void load() {
 
         Msg.load(cm.getOrCreate("messages.yml"));
-        Homes.load(cm.getOrCreate("homes.yml"));
-        Warps.load(cm.getOrCreate("warps.yml"));
+        HomeManager.load(cm.getOrCreate("homes.yml"));
+        WarpManager.load(cm.getOrCreate("warps.yml"));
         Config.load(this);
 
     }
 
     public void save() {
 
-        cm.saveConfig("homes.yml", Homes.save());
-        cm.saveConfig("warps.yml", Warps.save());
+        cm.saveConfig("homes.yml", HomeManager.save());
+        cm.saveConfig("warps.yml", WarpManager.save());
 
     }
 

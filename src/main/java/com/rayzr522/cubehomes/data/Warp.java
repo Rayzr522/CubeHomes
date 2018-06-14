@@ -1,38 +1,52 @@
-package com.rayzr522.cubehomes.homes;
+package com.rayzr522.cubehomes.data;
 
+import com.rayzr522.cubehomes.Config;
 import com.rayzr522.cubehomes.ConfigUtils;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-public class Home implements ConfigurationSerializable {
+public class Warp implements ConfigurationSerializable {
 
-    private UUID id;
     private String name;
     private Location location;
     private boolean isValid = false;
+    private Material iconType = Material.EMERALD;
+    private int iconData = 0;
 
-    public Home(Player p, String name) {
-        this.id = p.getUniqueId();
+    public Warp(String name, Location location) {
+
         this.name = name;
-        this.location = p.getLocation();
+        this.location = location;
 
         isValid = true;
+
     }
 
-    public Home(ConfigurationSection section) {
-        id = UUID.fromString(section.getString("owner"));
+    public Warp(ConfigurationSection section) {
+
         name = section.getString("name");
         location = ConfigUtils.location(section.getString("pos"));
+        iconType = Material.getMaterial(section.getString("item-type"));
+        if (iconType == null) {
+            iconType = Material.EMERALD;
+        }
+        iconData = section.getInt("item-data");
 
-        if (location != null) {
+        if (name != null && location != null) {
             isValid = true;
         }
+
+    }
+
+    public static Class<?> forceClassLoad() {
+        return Warp.class;
     }
 
     public boolean isValid() {
@@ -43,12 +57,8 @@ public class Home implements ConfigurationSerializable {
         player.teleport(location);
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
+    public World getWorld() {
+        return location.getWorld();
     }
 
     public String getName() {
@@ -67,28 +77,34 @@ public class Home implements ConfigurationSerializable {
         this.location = location;
     }
 
-    public boolean isAccessible() {
-        return Homes.isAccessible(id);
+    public void setIcon(Material iconType, int iconData) {
+        this.iconType = iconType;
+        this.iconData = iconData;
     }
 
-    @Override
-    public String toString() {
-        return "Home [id=" + id + ", name=" + name + ", location=" + location + ", isValid=" + isValid + "]";
+    public Material getIconType() {
+        return iconType;
     }
 
-    public boolean isOwner(Player p) {
-        return p.getUniqueId() == id;
+    public int getIconData() {
+        return iconData;
     }
 
     @Override
     public Map<String, Object> serialize() {
+
         Map<String, Object> map = new HashMap<String, Object>();
 
-        map.put("owner", id.toString());
         map.put("name", name);
         map.put("pos", ConfigUtils.toString(location));
+        map.put("item-type", iconType.toString());
+        map.put("item-data", iconData);
 
         return map;
+
     }
 
+    public boolean hasPermission(Player player) {
+        return player.hasPermission(String.format("%s.%s", Config.PERM_WARP, name));
+    }
 }

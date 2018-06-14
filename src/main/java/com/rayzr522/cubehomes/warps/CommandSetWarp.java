@@ -2,6 +2,7 @@ package com.rayzr522.cubehomes.warps;
 
 import com.rayzr522.cubehomes.Config;
 import com.rayzr522.cubehomes.Msg;
+import com.rayzr522.cubehomes.data.WarpManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,7 +28,7 @@ public class CommandSetWarp implements CommandExecutor {
             return true;
         }
 
-        Warps.add(p, args[0]);
+        WarpManager.add(p, args[0]);
         Msg.send(p, "warp-set", args[0]);
 
         return true;

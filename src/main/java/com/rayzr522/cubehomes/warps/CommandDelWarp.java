@@ -2,6 +2,8 @@ package com.rayzr522.cubehomes.warps;
 
 import com.rayzr522.cubehomes.Config;
 import com.rayzr522.cubehomes.Msg;
+import com.rayzr522.cubehomes.data.Warp;
+import com.rayzr522.cubehomes.data.WarpManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,14 +29,14 @@ public class CommandDelWarp implements CommandExecutor {
             return true;
         }
 
-        Warp warp = Warps.get(args[0]);
+        Warp warp = WarpManager.get(args[0]);
 
         if (warp == null) {
             Msg.send(sender, "unknown-warp", args[0]);
             return true;
         }
 
-        if (!Warps.del(warp)) {
+        if (!WarpManager.del(warp)) {
             Msg.send(p, "error");
         }
 

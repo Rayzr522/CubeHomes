@@ -2,6 +2,8 @@ package com.rayzr522.cubehomes.homes;
 
 import com.rayzr522.cubehomes.Config;
 import com.rayzr522.cubehomes.Msg;
+import com.rayzr522.cubehomes.data.Home;
+import com.rayzr522.cubehomes.data.HomeManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,7 +29,7 @@ public class CommandDelHome implements CommandExecutor {
             return true;
         }
 
-        Home home = Homes.get(args[0]);
+        Home home = HomeManager.get(args[0]);
 
         if (home == null) {
             Msg.send(sender, "unknown-home", args.length > 1 ? args[1] : args[0]);
@@ -39,7 +41,7 @@ public class CommandDelHome implements CommandExecutor {
             return true;
         }
 
-        if (!Homes.del(home)) {
+        if (!HomeManager.del(home)) {
             Msg.send(p, "error");
         }
 

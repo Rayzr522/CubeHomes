@@ -1,4 +1,4 @@
-package com.rayzr522.cubehomes.warps;
+package com.rayzr522.cubehomes.data;
 
 import com.rayzr522.cubehomes.Config;
 import com.rayzr522.cubehomes.TextUtils;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Warps {
+public class WarpManager {
 
     private static List<Warp> warps = new ArrayList<Warp>();
 

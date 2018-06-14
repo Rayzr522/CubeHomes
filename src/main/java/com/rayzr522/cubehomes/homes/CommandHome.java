@@ -1,14 +1,13 @@
 
 package com.rayzr522.cubehomes.homes;
 
-import java.util.List;
-
+import com.rayzr522.cubehomes.data.Home;
+import com.rayzr522.cubehomes.data.HomeManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.rayzr522.cubehomes.ArrayUtils;
 import com.rayzr522.cubehomes.Config;
 import com.rayzr522.cubehomes.Msg;
 
@@ -36,14 +35,14 @@ public class CommandHome implements CommandExecutor {
 
         if (args[0].equalsIgnoreCase("toggle")) {
 
-            boolean accessible = Homes.toggleAccessibility(player);
+            boolean accessible = HomeManager.toggleAccessibility(player);
 
             Msg.send(sender, "home-access", accessible ? "enabled" : "disabled");
             return true;
 
         }
 
-        Home home = Homes.get(args[0]);
+        Home home = HomeManager.get(args[0]);
 
         if (home == null) {
             Msg.send(sender, "unknown-home", args.length > 1 ? args[1] : args[0]);

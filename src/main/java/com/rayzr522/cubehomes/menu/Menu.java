@@ -3,8 +3,8 @@ package com.rayzr522.cubehomes.menu;
 import com.rayzr522.cubehomes.Color;
 import com.rayzr522.cubehomes.Msg;
 import com.rayzr522.cubehomes.TextUtils;
-import com.rayzr522.cubehomes.warps.Warp;
-import com.rayzr522.cubehomes.warps.Warps;
+import com.rayzr522.cubehomes.data.Warp;
+import com.rayzr522.cubehomes.data.WarpManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -91,7 +91,7 @@ public class Menu implements Listener {
             e.getWhoClicked().closeInventory();
 
             int page = holder.getPage();
-            if (page >= Warps.maxPage()) {
+            if (page >= WarpManager.maxPage()) {
                 return;
             }
 

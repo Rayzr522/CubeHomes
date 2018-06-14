@@ -1,4 +1,4 @@
-package com.rayzr522.cubehomes.homes;
+package com.rayzr522.cubehomes.data;
 
 import com.rayzr522.cubehomes.Config;
 import com.rayzr522.cubehomes.TextUtils;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 
-public class Homes {
+public class HomeManager {
     private static List<Home> homes = new ArrayList<Home>();
     private static HashMap<UUID, Boolean> players = new HashMap<UUID, Boolean>();
 

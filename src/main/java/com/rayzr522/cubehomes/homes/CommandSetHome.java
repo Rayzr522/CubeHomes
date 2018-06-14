@@ -2,6 +2,8 @@ package com.rayzr522.cubehomes.homes;
 
 import com.rayzr522.cubehomes.Config;
 import com.rayzr522.cubehomes.Msg;
+import com.rayzr522.cubehomes.data.Home;
+import com.rayzr522.cubehomes.data.HomeManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,14 +30,14 @@ public class CommandSetHome implements CommandExecutor {
             return true;
         }
 
-        Home home = Homes.get(args[0]);
+        Home home = HomeManager.get(args[0]);
         if (home != null) {
             if (!home.isOwner(p) && !p.hasPermission(Config.PERM_OTHERS)) {
                 Msg.send(p, "not-owner", args[0]);
                 return true;
             }
 
-            if (!Homes.update(p, home)) {
+            if (!HomeManager.update(p, home)) {
                 Msg.send(p, "error");
             } else {
                 Msg.send(p, "home-set", args[0]);
@@ -44,7 +46,7 @@ public class CommandSetHome implements CommandExecutor {
         } else if (numHomes(p) > 0 && (!p.hasPermission(Config.PERM_MORE) || !p.hasPermission(Config.PERM_MORE + "." + numHomes(p)))) {
             Msg.send(p, "max-homes", "" + numHomes(p));
         } else {
-            Homes.add(p, args[0]);
+            HomeManager.add(p, args[0]);
             Msg.send(p, "home-set", args[0]);
         }
 
@@ -53,7 +55,7 @@ public class CommandSetHome implements CommandExecutor {
     }
 
     public int numHomes(Player player) {
-        return Homes.get(player).size();
+        return HomeManager.get(player).size();
     }
 
 }

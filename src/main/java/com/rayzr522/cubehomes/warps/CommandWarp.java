@@ -2,6 +2,8 @@ package com.rayzr522.cubehomes.warps;
 
 import com.rayzr522.cubehomes.Config;
 import com.rayzr522.cubehomes.Msg;
+import com.rayzr522.cubehomes.data.Warp;
+import com.rayzr522.cubehomes.data.WarpManager;
 import com.rayzr522.cubehomes.menu.Menu;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -28,7 +30,7 @@ public class CommandWarp implements CommandExecutor {
             return true;
         }
 
-        Warp warp = Warps.get(args[0]);
+        Warp warp = WarpManager.get(args[0]);
 
         if (warp == null || (Config.PER_WORLD_WARPS && warp.getWorld() != p.getWorld())) {
             Msg.send(sender, "unknown-warp", args[0]);
