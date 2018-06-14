@@ -2,7 +2,7 @@
 package com.rayzr522.cubehomes.command;
 
 import com.rayzr522.cubehomes.CubeHomes;
-import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.Language;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,7 +21,7 @@ public class CommandCubeHomes implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!sender.hasPermission(Config.PERM_CUBEHOMES)) {
+        if (!sender.hasPermission(Settings.PERM_CUBEHOMES)) {
 
             Language.send(sender, "no-permission");
             return true;

@@ -29,7 +29,7 @@ public class Home implements ConfigurationSerializable {
     public Home(ConfigurationSection section) {
         id = UUID.fromString(section.getString("owner"));
         name = section.getString("name");
-        location = ConfigUtils.location(section.getString("pos"));
+        location = ConfigUtils.parseLocation(section.getString("pos"));
 
         if (location != null) {
             isValid = true;

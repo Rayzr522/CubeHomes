@@ -3,7 +3,7 @@ package com.rayzr522.cubehomes.command.homes;
 import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Home;
 import com.rayzr522.cubehomes.data.HomeManager;
-import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.Language;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,7 +25,7 @@ public class CommandDelHome implements CommandExecutor {
 
         Player p = (Player) sender;
 
-        if (!p.hasPermission(Config.PERM_DELHOME)) {
+        if (!p.hasPermission(Settings.PERM_DELHOME)) {
             Language.send(p, "no-permission");
             return true;
         }
@@ -44,7 +44,7 @@ public class CommandDelHome implements CommandExecutor {
             return true;
         }
 
-        if (!home.isOwner(p) && !p.hasPermission(Config.PERM_OTHERS)) {
+        if (!home.isOwner(p) && !p.hasPermission(Settings.PERM_OTHERS)) {
             Language.send(p, "not-owner", args[0]);
             return true;
         }

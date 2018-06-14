@@ -1,6 +1,6 @@
 package com.rayzr522.cubehomes.data;
 
-import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.ConfigUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -32,7 +32,7 @@ public class Warp implements ConfigurationSerializable {
     public Warp(ConfigurationSection section) {
 
         name = section.getString("name");
-        location = ConfigUtils.location(section.getString("pos"));
+        location = ConfigUtils.parseLocation(section.getString("pos"));
         iconType = Material.getMaterial(section.getString("item-type"));
         if (iconType == null) {
             iconType = Material.EMERALD;
@@ -103,6 +103,6 @@ public class Warp implements ConfigurationSerializable {
     }
 
     public boolean hasPermission(Player player) {
-        return player.hasPermission(String.format("%s.%s", Config.PERM_WARP, name));
+        return player.hasPermission(String.format("%s.%s", Settings.PERM_WARP, name));
     }
 }

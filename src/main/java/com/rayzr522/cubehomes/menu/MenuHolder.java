@@ -2,7 +2,7 @@ package com.rayzr522.cubehomes.menu;
 
 import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Warp;
-import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -19,7 +19,7 @@ public class MenuHolder implements InventoryHolder {
     private Inventory inv;
 
     public MenuHolder(int page, Player player) {
-        this.inv = Bukkit.createInventory(this, 54, Config.GUI_NAME);
+        this.inv = Bukkit.createInventory(this, 54, Settings.GUI_NAME);
         this.page = page;
         this.warps = CubeHomes.getInstance().getWarpManager().getForPage(player, page);
 

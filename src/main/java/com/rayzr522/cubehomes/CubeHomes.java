@@ -14,11 +14,14 @@ import com.rayzr522.cubehomes.data.HomeManager;
 import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.data.WarpManager;
 import com.rayzr522.cubehomes.menu.MenuListener;
-import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.ConfigManager;
 import com.rayzr522.cubehomes.utils.Language;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * @author Rayzr522
+ */
 public class CubeHomes extends JavaPlugin {
     private static CubeHomes instance;
 
@@ -68,7 +71,7 @@ public class CubeHomes extends JavaPlugin {
         Language.load(configManager.getOrCreate("messages.yml"));
         homeManager.load(configManager.getOrCreate("homes.yml"));
         warpManager.load(configManager.getOrCreate("warps.yml"));
-        Config.load(this);
+        Settings.load(this);
     }
 
     public void save() {

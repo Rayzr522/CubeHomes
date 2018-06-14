@@ -1,6 +1,6 @@
 package com.rayzr522.cubehomes.data;
 
-import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.TextUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -96,7 +96,7 @@ public class WarpManager {
     public List<Warp> getForPage(Player player, int page) {
         List<Warp> filtered = warps.stream()
                 .filter(warp -> warp.hasPermission(player))
-                .filter(warp -> !Config.PER_WORLD_WARPS || warp.getWorld() == player.getWorld())
+                .filter(warp -> !Settings.PER_WORLD_WARPS || warp.getWorld() == player.getWorld())
                 .collect(Collectors.toList());
 
         int offset = page * 28;

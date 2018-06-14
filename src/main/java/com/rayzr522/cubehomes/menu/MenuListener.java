@@ -2,7 +2,6 @@ package com.rayzr522.cubehomes.menu;
 
 import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Warp;
-import com.rayzr522.cubehomes.utils.Color;
 import com.rayzr522.cubehomes.utils.Language;
 import com.rayzr522.cubehomes.utils.TextUtils;
 import org.bukkit.Material;
@@ -18,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuListener implements Listener {
-    static final ItemStack BUTTON_PREV = button(Material.STAINED_GLASS_PANE, Color.RED, "&cPrevious Page", "&7&oTakes you to the previous page");
+    static final ItemStack BUTTON_PREV = button(Material.STAINED_GLASS_PANE, 14, "&cPrevious Page", "&7&oTakes you to the previous page");
     static final ItemStack BUTTON_CLOSE = button(Material.REDSTONE_BLOCK, 0, "&cClose", "&7&oCloses the menu");
-    static final ItemStack BUTTON_NEXT = button(Material.STAINED_GLASS_PANE, Color.RED, "&cNext Page", "&7&oTakes you to the next page");
+    static final ItemStack BUTTON_NEXT = button(Material.STAINED_GLASS_PANE, 14, "&cNext Page", "&7&oTakes you to the next page");
 
     private final CubeHomes plugin;
 

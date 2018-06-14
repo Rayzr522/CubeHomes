@@ -3,7 +3,7 @@ package com.rayzr522.cubehomes.command.homes;
 import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Home;
 import com.rayzr522.cubehomes.data.HomeManager;
-import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.Language;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,7 +25,7 @@ public class CommandHome implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (!player.hasPermission(Config.PERM_HOME)) {
+        if (!player.hasPermission(Settings.PERM_HOME)) {
             Language.send(player, "no-permission");
             return true;
         }

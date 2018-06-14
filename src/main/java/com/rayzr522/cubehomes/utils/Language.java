@@ -10,6 +10,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * @author Rayzr522
+ */
 public class Language {
     private static final Pattern KEY_PATTERN = Pattern.compile("\\[\\[([a-zA-Z-_.]+)]]");
     private static Map<String, String> messages = new HashMap<>();

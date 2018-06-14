@@ -7,6 +7,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 
+/**
+ * @author Rayzr522
+ */
 public class ConfigManager {
     private final CubeHomes plugin;
 

@@ -3,8 +3,10 @@ package com.rayzr522.cubehomes.utils;
 import com.rayzr522.cubehomes.CubeHomes;
 import org.bukkit.configuration.file.FileConfiguration;
 
-public class Config {
-
+/**
+ * @author Rayzr522
+ */
+public class Settings {
     public static String PERM_MORE = "";
     public static String PERM_OTHERS = "";
 

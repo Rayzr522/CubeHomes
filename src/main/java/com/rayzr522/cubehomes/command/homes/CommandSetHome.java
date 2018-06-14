@@ -3,7 +3,7 @@ package com.rayzr522.cubehomes.command.homes;
 import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Home;
 import com.rayzr522.cubehomes.data.HomeManager;
-import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.Language;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,7 +25,7 @@ public class CommandSetHome implements CommandExecutor {
 
         Player p = (Player) sender;
 
-        if (!p.hasPermission(Config.PERM_SETHOME)) {
+        if (!p.hasPermission(Settings.PERM_SETHOME)) {
             Language.send(p, "no-permission");
             return true;
         }
@@ -39,7 +39,7 @@ public class CommandSetHome implements CommandExecutor {
         Home home = homeManager.get(args[0]);
 
         if (home != null) {
-            if (!home.isOwner(p) && !p.hasPermission(Config.PERM_OTHERS)) {
+            if (!home.isOwner(p) && !p.hasPermission(Settings.PERM_OTHERS)) {
                 Language.send(p, "not-owner", args[0]);
                 return true;
             }
@@ -49,7 +49,7 @@ public class CommandSetHome implements CommandExecutor {
             } else {
                 Language.send(p, "home-set", args[0]);
             }
-        } else if (numHomes(p) > 0 && (!p.hasPermission(Config.PERM_MORE) || !p.hasPermission(Config.PERM_MORE + "." + numHomes(p)))) {
+        } else if (numHomes(p) > 0 && (!p.hasPermission(Settings.PERM_MORE) || !p.hasPermission(Settings.PERM_MORE + "." + numHomes(p)))) {
             Language.send(p, "max-homes", "" + numHomes(p));
         } else {
             homeManager.add(p, args[0]);

@@ -2,7 +2,7 @@ package com.rayzr522.cubehomes.command.warps;
 
 import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.WarpManager;
-import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.Language;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,7 +24,7 @@ public class CommandSetWarp implements CommandExecutor {
 
         Player p = (Player) sender;
 
-        if (!p.hasPermission(Config.PERM_SETWARP)) {
+        if (!p.hasPermission(Settings.PERM_SETWARP)) {
             Language.send(p, "no-permission");
             return true;
         }

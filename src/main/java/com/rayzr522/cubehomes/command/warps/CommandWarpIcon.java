@@ -4,7 +4,7 @@ import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.data.WarpManager;
 import com.rayzr522.cubehomes.utils.ArrayUtils;
-import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.Language;
 import com.rayzr522.cubehomes.utils.TextUtils;
 import org.bukkit.Material;
@@ -30,7 +30,7 @@ public class CommandWarpIcon implements CommandExecutor {
 
         Player p = (Player) sender;
 
-        if (!p.hasPermission(Config.PERM_WARPICON)) {
+        if (!p.hasPermission(Settings.PERM_WARPICON)) {
             Language.send(p, "no-permission");
             return true;
         }

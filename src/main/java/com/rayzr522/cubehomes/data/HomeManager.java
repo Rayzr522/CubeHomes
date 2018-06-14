@@ -1,6 +1,6 @@
 package com.rayzr522.cubehomes.data;
 
-import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.TextUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -66,7 +66,7 @@ public class HomeManager {
     }
 
     public boolean update(Player player, Home home) {
-        if (!home.isOwner(player) && !player.hasPermission(Config.PERM_OTHERS)) {
+        if (!home.isOwner(player) && !player.hasPermission(Settings.PERM_OTHERS)) {
             return false;
         }
         home.setLocation(player.getLocation());
