@@ -1,7 +1,7 @@
 package com.rayzr522.cubehomes.menu;
 
-import com.rayzr522.cubehomes.Config;
-import com.rayzr522.cubehomes.TextUtils;
+import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.TextUtils;
 import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.data.WarpManager;
 import org.bukkit.Bukkit;

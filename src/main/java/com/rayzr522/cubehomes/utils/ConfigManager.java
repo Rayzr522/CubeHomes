@@ -1,8 +1,9 @@
 
-package com.rayzr522.cubehomes;
+package com.rayzr522.cubehomes.utils;
 
 import java.io.File;
 
+import com.rayzr522.cubehomes.CubeHomes;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class ConfigManager {

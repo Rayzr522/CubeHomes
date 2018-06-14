@@ -1,7 +1,7 @@
 package com.rayzr522.cubehomes.data;
 
-import com.rayzr522.cubehomes.Config;
-import com.rayzr522.cubehomes.ConfigUtils;
+import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.ConfigUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;

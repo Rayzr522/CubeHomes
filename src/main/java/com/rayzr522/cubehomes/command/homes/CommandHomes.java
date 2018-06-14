@@ -1,8 +1,8 @@
 package com.rayzr522.cubehomes.command.homes;
 
-import com.rayzr522.cubehomes.ArrayUtils;
-import com.rayzr522.cubehomes.Config;
-import com.rayzr522.cubehomes.Msg;
+import com.rayzr522.cubehomes.utils.ArrayUtils;
+import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Msg;
 import com.rayzr522.cubehomes.data.Home;
 import com.rayzr522.cubehomes.data.HomeManager;
 import org.bukkit.command.Command;

@@ -11,10 +11,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.rayzr522.cubehomes.ArrayUtils;
-import com.rayzr522.cubehomes.Config;
-import com.rayzr522.cubehomes.Msg;
-import com.rayzr522.cubehomes.TextUtils;
+import com.rayzr522.cubehomes.utils.ArrayUtils;
+import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Msg;
+import com.rayzr522.cubehomes.utils.TextUtils;
 
 public class CommandWarpIcon implements CommandExecutor {
 

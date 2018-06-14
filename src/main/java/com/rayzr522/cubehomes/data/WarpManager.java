@@ -1,7 +1,7 @@
 package com.rayzr522.cubehomes.data;
 
-import com.rayzr522.cubehomes.Config;
-import com.rayzr522.cubehomes.TextUtils;
+import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.TextUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;

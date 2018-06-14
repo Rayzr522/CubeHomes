@@ -1,5 +1,5 @@
 
-package com.rayzr522.cubehomes;
+package com.rayzr522.cubehomes.utils;
 
 import java.util.Locale;
 import java.util.regex.Pattern;

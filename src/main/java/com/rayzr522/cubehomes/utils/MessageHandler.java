@@ -1,4 +1,4 @@
-package com.rayzr522.cubehomes;
+package com.rayzr522.cubehomes.utils;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;

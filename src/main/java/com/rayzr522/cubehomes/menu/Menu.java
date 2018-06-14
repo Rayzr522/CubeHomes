@@ -1,8 +1,8 @@
 package com.rayzr522.cubehomes.menu;
 
-import com.rayzr522.cubehomes.Color;
-import com.rayzr522.cubehomes.Msg;
-import com.rayzr522.cubehomes.TextUtils;
+import com.rayzr522.cubehomes.utils.Color;
+import com.rayzr522.cubehomes.utils.Msg;
+import com.rayzr522.cubehomes.utils.TextUtils;
 import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.data.WarpManager;
 import org.bukkit.Material;

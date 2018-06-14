@@ -1,5 +1,6 @@
-package com.rayzr522.cubehomes;
+package com.rayzr522.cubehomes.utils;
 
+import com.rayzr522.cubehomes.CubeHomes;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class Config {

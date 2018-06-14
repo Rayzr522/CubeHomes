@@ -1,5 +1,5 @@
 
-package com.rayzr522.cubehomes;
+package com.rayzr522.cubehomes.utils;
 
 public class Color {
 

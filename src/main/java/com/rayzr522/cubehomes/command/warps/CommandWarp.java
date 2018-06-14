@@ -1,7 +1,7 @@
 package com.rayzr522.cubehomes.command.warps;
 
-import com.rayzr522.cubehomes.Config;
-import com.rayzr522.cubehomes.Msg;
+import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Msg;
 import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.data.WarpManager;
 import com.rayzr522.cubehomes.menu.Menu;
