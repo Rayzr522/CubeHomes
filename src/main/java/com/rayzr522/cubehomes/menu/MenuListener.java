@@ -3,7 +3,7 @@ package com.rayzr522.cubehomes.menu;
 import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.utils.Color;
-import com.rayzr522.cubehomes.utils.Msg;
+import com.rayzr522.cubehomes.utils.Language;
 import com.rayzr522.cubehomes.utils.TextUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -116,7 +116,7 @@ public class MenuListener implements Listener {
             Warp warp = holder.getWarps().get(index);
 
             warp.tp(p);
-            Msg.send(p, "teleporting-warp", warp.getName());
+            Language.send(p, "teleporting-warp", warp.getName());
         }
 
     }

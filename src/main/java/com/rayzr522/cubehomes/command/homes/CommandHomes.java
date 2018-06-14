@@ -4,7 +4,7 @@ import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Home;
 import com.rayzr522.cubehomes.utils.ArrayUtils;
 import com.rayzr522.cubehomes.utils.Config;
-import com.rayzr522.cubehomes.utils.Msg;
+import com.rayzr522.cubehomes.utils.Language;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,23 +24,23 @@ public class CommandHomes implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            Msg.send(sender, "only-players");
+            Language.send(sender, "only-players");
             return true;
         }
 
         Player player = (Player) sender;
 
         if (!player.hasPermission(Config.PERM_LIST_HOMES)) {
-            Msg.send(player, "no-permission");
+            Language.send(player, "no-permission");
             return true;
         }
 
         List<Home> homes = plugin.getHomeManager().all();
 
         if (homes.size() < 1) {
-            Msg.send(player, "no-homes");
+            Language.send(player, "no-homes");
         } else {
-            Msg.send(player, "all-homes", ArrayUtils.concat(ArrayUtils.names(homes), ", "));
+            Language.send(player, "all-homes", ArrayUtils.concat(ArrayUtils.names(homes), ", "));
         }
 
         return true;

@@ -5,7 +5,7 @@ import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.data.WarpManager;
 import com.rayzr522.cubehomes.utils.ArrayUtils;
 import com.rayzr522.cubehomes.utils.Config;
-import com.rayzr522.cubehomes.utils.Msg;
+import com.rayzr522.cubehomes.utils.Language;
 import com.rayzr522.cubehomes.utils.TextUtils;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -24,19 +24,19 @@ public class CommandWarpIcon implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            Msg.send(sender, "only-players");
+            Language.send(sender, "only-players");
             return true;
         }
 
         Player p = (Player) sender;
 
         if (!p.hasPermission(Config.PERM_WARPICON)) {
-            Msg.send(p, "no-permission");
+            Language.send(p, "no-permission");
             return true;
         }
 
         if (args.length < 2) {
-            Msg.send(p, "usage.warpicon");
+            Language.send(p, "usage.warpicon");
             return true;
         }
 
@@ -44,7 +44,7 @@ public class CommandWarpIcon implements CommandExecutor {
         Warp warp = warpManager.get(args[0]);
 
         if (warp == null) {
-            Msg.send(p, "unknown-warp", args[0]);
+            Language.send(p, "unknown-warp", args[0]);
             return true;
         }
 
@@ -54,7 +54,7 @@ public class CommandWarpIcon implements CommandExecutor {
             try {
                 data = Integer.parseInt(itemString.split(":")[1]);
             } catch (Exception e) {
-                Msg.send(p, "item.invalid-data", itemString.split(":")[1]);
+                Language.send(p, "item.invalid-data", itemString.split(":")[1]);
                 return true;
             }
             itemString = itemString.split(":")[0];
@@ -62,12 +62,12 @@ public class CommandWarpIcon implements CommandExecutor {
 
         Material type = Material.getMaterial(TextUtils.enumFormat(itemString));
         if (type == null) {
-            Msg.send(p, "item.invalid-type", itemString);
+            Language.send(p, "item.invalid-type", itemString);
             return true;
         }
 
         warp.setIcon(type, data);
-        Msg.send(p, "warp-icon-set", args[0], type.toString() + (data > 0 ? ":" + data : ""));
+        Language.send(p, "warp-icon-set", args[0], type.toString() + (data > 0 ? ":" + data : ""));
 
         return true;
     }

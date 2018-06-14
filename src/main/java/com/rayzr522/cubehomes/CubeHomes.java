@@ -16,7 +16,7 @@ import com.rayzr522.cubehomes.data.WarpManager;
 import com.rayzr522.cubehomes.menu.MenuListener;
 import com.rayzr522.cubehomes.utils.Config;
 import com.rayzr522.cubehomes.utils.ConfigManager;
-import com.rayzr522.cubehomes.utils.Msg;
+import com.rayzr522.cubehomes.utils.Language;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CubeHomes extends JavaPlugin {
@@ -65,7 +65,7 @@ public class CubeHomes extends JavaPlugin {
     }
 
     public void load() {
-        Msg.load(configManager.getOrCreate("messages.yml"));
+        Language.load(configManager.getOrCreate("messages.yml"));
         homeManager.load(configManager.getOrCreate("homes.yml"));
         warpManager.load(configManager.getOrCreate("warps.yml"));
         Config.load(this);

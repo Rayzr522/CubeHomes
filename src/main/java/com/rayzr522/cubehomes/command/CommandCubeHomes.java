@@ -3,7 +3,7 @@ package com.rayzr522.cubehomes.command;
 
 import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.utils.Config;
-import com.rayzr522.cubehomes.utils.Msg;
+import com.rayzr522.cubehomes.utils.Language;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,7 +23,7 @@ public class CommandCubeHomes implements CommandExecutor {
 
         if (!sender.hasPermission(Config.PERM_CUBEHOMES)) {
 
-            Msg.send(sender, "no-permission");
+            Language.send(sender, "no-permission");
             return true;
 
         }
@@ -31,7 +31,7 @@ public class CommandCubeHomes implements CommandExecutor {
         if (args.length < 1) {
 
             PluginDescriptionFile pdf = plugin.getDescription();
-            Msg.send(sender, "version-info", pdf.getName(), pdf.getVersion());
+            Language.send(sender, "version-info", pdf.getName(), pdf.getVersion());
             return true;
 
         }
@@ -42,16 +42,16 @@ public class CommandCubeHomes implements CommandExecutor {
 
             plugin.reloadConfig();
             plugin.load();
-            Msg.send(sender, "config-reloaded");
+            Language.send(sender, "config-reloaded");
 
         } else if (cmd.equals("save")) {
 
             plugin.save();
-            Msg.send(sender, "config-saved");
+            Language.send(sender, "config-saved");
 
         } else {
 
-            Msg.send(sender, "usage.cubehomes");
+            Language.send(sender, "usage.cubehomes");
 
         }
 

@@ -5,7 +5,7 @@ import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.data.WarpManager;
 import com.rayzr522.cubehomes.menu.MenuListener;
 import com.rayzr522.cubehomes.utils.Config;
-import com.rayzr522.cubehomes.utils.Msg;
+import com.rayzr522.cubehomes.utils.Language;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,14 +20,14 @@ public class CommandWarp implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            Msg.send(sender, "only-players");
+            Language.send(sender, "only-players");
             return true;
         }
 
         Player p = (Player) sender;
 
         if (!p.hasPermission(Config.PERM_WARP)) {
-            Msg.send(p, "no-permission");
+            Language.send(p, "no-permission");
             return true;
         }
 
@@ -40,16 +40,16 @@ public class CommandWarp implements CommandExecutor {
         Warp warp = warpManager.get(args[0]);
 
         if (warp == null || (Config.PER_WORLD_WARPS && warp.getWorld() != p.getWorld())) {
-            Msg.send(sender, "unknown-warp", args[0]);
+            Language.send(sender, "unknown-warp", args[0]);
             return true;
         }
 
         if (!warp.hasPermission(p)) {
-            Msg.send(sender, "no-permission-warp");
+            Language.send(sender, "no-permission-warp");
             return true;
         }
 
-        Msg.send(sender, "teleporting-warp", warp.getName());
+        Language.send(sender, "teleporting-warp", warp.getName());
         warp.tp(p);
 
         return true;
