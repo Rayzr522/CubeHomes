@@ -1,41 +1,25 @@
-
 package com.rayzr522.cubehomes.utils;
-
-import java.io.File;
 
 import com.rayzr522.cubehomes.CubeHomes;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-public class ConfigManager {
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
 
-    private CubeHomes plugin;
+public class ConfigManager {
+    private final CubeHomes plugin;
 
     public ConfigManager(CubeHomes plugin) {
-
         this.plugin = plugin;
-
-        if (!configYmlExists()) {
-
-            plugin.saveResource("config.yml", true);
-
-        }
-
-    }
-
-    public boolean configYmlExists() {
-
-        return getFile("config.yml").exists();
-
+        plugin.saveDefaultConfig();
     }
 
     public YamlConfiguration getConfig(String path) {
-
         return YamlConfiguration.loadConfiguration(getFile(path));
-
     }
 
     public YamlConfiguration getOrCreate(String path) {
-
         File file = getFile(path);
 
         if (!file.exists()) {
@@ -44,63 +28,30 @@ public class ConfigManager {
             } else {
                 try {
                     file.createNewFile();
-                } catch (Exception e) {
-                    System.err.println("Failed to create file at '" + path + "'");
-                    e.printStackTrace();
+                } catch (IOException e) {
+                    plugin.getLogger().log(Level.SEVERE, "Failed to create file at '" + path + "'", e);
                 }
             }
         }
 
-        return YamlConfiguration.loadConfiguration(file);
-
+        return getConfig(path);
     }
 
     public File getFile(String path) {
-
-        return new File(plugin.getDataFolder() + File.separator + path);
-
-    }
-
-    public void backupConfig() {
-
-        if (!configYmlExists()) {
-            return;
-        }
-
-        File backupFile = getFile("config-backup.yml");
-
-        if (backupFile.exists()) {
-            backupFile.delete();
-        }
-
-        File configYml = getFile("config.yml");
-        configYml.renameTo(backupFile);
-
-        plugin.saveResource("config.yml", true);
-
+        return new File(plugin.getDataFolder(), path.replace('/', File.separatorChar));
     }
 
     public void saveConfig(String path, YamlConfiguration config) {
-
         try {
-
             File file = getFile(path);
 
             if (!file.exists()) {
-
                 file.createNewFile();
-
             }
 
             config.save(file);
-
-        } catch (Exception e) {
-
-            System.err.println("Failed to save config file at '" + path + "'");
-            e.printStackTrace();
-
+        } catch (IOException e) {
+            plugin.getLogger().log(Level.SEVERE, "Failed to save config file at '" + path + "'", e);
         }
-
     }
-
 }
