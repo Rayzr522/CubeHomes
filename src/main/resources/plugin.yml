@@ -1,6 +1,6 @@
 name: CubeHomes
 main: com.rayzr522.cubehomes.CubeHomes
-version: 1.0.4
+version: ${project.version}
 description: Customizable homes plugin
 softdepend: [Multiverse-Core]
 commands:
