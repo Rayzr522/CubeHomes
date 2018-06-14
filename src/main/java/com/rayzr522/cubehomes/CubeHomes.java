@@ -1,81 +1,86 @@
 package com.rayzr522.cubehomes;
 
 import com.rayzr522.cubehomes.command.CommandCubeHomes;
+import com.rayzr522.cubehomes.command.homes.CommandDelHome;
+import com.rayzr522.cubehomes.command.homes.CommandHome;
+import com.rayzr522.cubehomes.command.homes.CommandHomes;
+import com.rayzr522.cubehomes.command.homes.CommandSetHome;
+import com.rayzr522.cubehomes.command.warps.CommandDelWarp;
+import com.rayzr522.cubehomes.command.warps.CommandSetWarp;
+import com.rayzr522.cubehomes.command.warps.CommandWarp;
+import com.rayzr522.cubehomes.command.warps.CommandWarpIcon;
 import com.rayzr522.cubehomes.data.Home;
 import com.rayzr522.cubehomes.data.HomeManager;
 import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.data.WarpManager;
-import com.rayzr522.cubehomes.command.homes.*;
-import com.rayzr522.cubehomes.menu.Menu;
-import com.rayzr522.cubehomes.command.warps.*;
+import com.rayzr522.cubehomes.menu.MenuListener;
 import com.rayzr522.cubehomes.utils.Config;
 import com.rayzr522.cubehomes.utils.ConfigManager;
 import com.rayzr522.cubehomes.utils.Msg;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.logging.Logger;
-
 public class CubeHomes extends JavaPlugin {
+    private static CubeHomes instance;
 
-    private Logger logger;
-    private ConfigManager cm;
+    private ConfigManager configManager;
+    private HomeManager homeManager;
+    private WarpManager warpManager;
+
+    public static CubeHomes getInstance() {
+        return instance;
+    }
 
     @Override
     public void onEnable() {
-
-        logger = getLogger();
+        instance = this;
 
         System.out.println("Forcing class load: " + Warp.class.getCanonicalName());
         System.out.println("Forcing class load: " + Home.class.getCanonicalName());
 
-        cm = new ConfigManager(this);
+        configManager = new ConfigManager(this);
+        homeManager = new HomeManager();
+        warpManager = new WarpManager();
 
         load();
 
-        getCommand("home").setExecutor(new CommandHome());
-        getCommand("homes").setExecutor(new CommandHomes());
-        getCommand("sethome").setExecutor(new CommandSetHome());
-        getCommand("delhome").setExecutor(new CommandDelHome());
+        getCommand("home").setExecutor(new CommandHome(this));
+        getCommand("homes").setExecutor(new CommandHomes(this));
+        getCommand("sethome").setExecutor(new CommandSetHome(this));
+        getCommand("delhome").setExecutor(new CommandDelHome(this));
 
-        getCommand("warp").setExecutor(new CommandWarp());
-        getCommand("warpicon").setExecutor(new CommandWarpIcon());
-        getCommand("setwarp").setExecutor(new CommandSetWarp());
-        getCommand("delwarp").setExecutor(new CommandDelWarp());
+        getCommand("warp").setExecutor(new CommandWarp(this));
+        getCommand("warpicon").setExecutor(new CommandWarpIcon(this));
+        getCommand("setwarp").setExecutor(new CommandSetWarp(this));
+        getCommand("delwarp").setExecutor(new CommandDelWarp(this));
 
         getCommand("cubehomes").setExecutor(new CommandCubeHomes(this));
 
-        getServer().getPluginManager().registerEvents(new Menu(), this);
-
-    }
-
-    public void load() {
-
-        Msg.load(cm.getOrCreate("messages.yml"));
-        HomeManager.load(cm.getOrCreate("homes.yml"));
-        WarpManager.load(cm.getOrCreate("warps.yml"));
-        Config.load(this);
-
-    }
-
-    public void save() {
-
-        cm.saveConfig("homes.yml", HomeManager.save());
-        cm.saveConfig("warps.yml", WarpManager.save());
-
+        getServer().getPluginManager().registerEvents(new MenuListener(this), this);
     }
 
     @Override
     public void onDisable() {
-
         save();
-        logger.info(versionText() + " disabled");
-
+        instance = null;
     }
 
-    public String versionText() {
-
-        return getDescription().getName() + " v" + getDescription().getVersion();
-
+    public void load() {
+        Msg.load(configManager.getOrCreate("messages.yml"));
+        homeManager.load(configManager.getOrCreate("homes.yml"));
+        warpManager.load(configManager.getOrCreate("warps.yml"));
+        Config.load(this);
     }
 
+    public void save() {
+        configManager.saveConfig("homes.yml", homeManager.save());
+        configManager.saveConfig("warps.yml", warpManager.save());
+    }
+
+    public HomeManager getHomeManager() {
+        return homeManager;
+    }
+
+    public WarpManager getWarpManager() {
+        return warpManager;
+    }
 }

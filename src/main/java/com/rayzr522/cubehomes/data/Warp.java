@@ -92,8 +92,7 @@ public class Warp implements ConfigurationSerializable {
 
     @Override
     public Map<String, Object> serialize() {
-
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
 
         map.put("name", name);
         map.put("pos", ConfigUtils.toString(location));
@@ -101,7 +100,6 @@ public class Warp implements ConfigurationSerializable {
         map.put("item-data", iconData);
 
         return map;
-
     }
 
     public boolean hasPermission(Player player) {

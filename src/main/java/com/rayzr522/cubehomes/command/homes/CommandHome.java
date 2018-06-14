@@ -1,17 +1,21 @@
-
 package com.rayzr522.cubehomes.command.homes;
 
+import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Home;
 import com.rayzr522.cubehomes.data.HomeManager;
+import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Msg;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.rayzr522.cubehomes.utils.Config;
-import com.rayzr522.cubehomes.utils.Msg;
-
 public class CommandHome implements CommandExecutor {
+    private final CubeHomes plugin;
+
+    public CommandHome(CubeHomes plugin) {
+        this.plugin = plugin;
+    }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
@@ -22,10 +26,8 @@ public class CommandHome implements CommandExecutor {
         Player player = (Player) sender;
 
         if (!player.hasPermission(Config.PERM_HOME)) {
-
             Msg.send(player, "no-permission");
             return true;
-
         }
 
         if (args.length < 1) {
@@ -33,16 +35,16 @@ public class CommandHome implements CommandExecutor {
             return true;
         }
 
-        if (args[0].equalsIgnoreCase("toggle")) {
+        HomeManager homeManager = plugin.getHomeManager();
 
-            boolean accessible = HomeManager.toggleAccessibility(player);
+        if (args[0].equalsIgnoreCase("toggle")) {
+            boolean accessible = homeManager.toggleAccessibility(player);
 
             Msg.send(sender, "home-access", accessible ? "enabled" : "disabled");
             return true;
-
         }
 
-        Home home = HomeManager.get(args[0]);
+        Home home = homeManager.get(args[0]);
 
         if (home == null) {
             Msg.send(sender, "unknown-home", args.length > 1 ? args[1] : args[0]);
@@ -50,10 +52,8 @@ public class CommandHome implements CommandExecutor {
         }
 
         if (!home.isOwner(player) && !home.isAccessible()) {
-
             Msg.send(sender, "no-access", home.getName());
             return true;
-
         }
 
         Msg.send(sender, "teleporting", home.getName());
@@ -61,5 +61,4 @@ public class CommandHome implements CommandExecutor {
 
         return true;
     }
-
 }

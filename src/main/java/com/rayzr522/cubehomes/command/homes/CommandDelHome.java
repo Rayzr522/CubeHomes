@@ -1,15 +1,21 @@
 package com.rayzr522.cubehomes.command.homes;
 
-import com.rayzr522.cubehomes.utils.Config;
-import com.rayzr522.cubehomes.utils.Msg;
+import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Home;
 import com.rayzr522.cubehomes.data.HomeManager;
+import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Msg;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class CommandDelHome implements CommandExecutor {
+    private final CubeHomes plugin;
+
+    public CommandDelHome(CubeHomes plugin) {
+        this.plugin = plugin;
+    }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
@@ -29,7 +35,9 @@ public class CommandDelHome implements CommandExecutor {
             return true;
         }
 
-        Home home = HomeManager.get(args[0]);
+        HomeManager homeManager = plugin.getHomeManager();
+
+        Home home = homeManager.get(args[0]);
 
         if (home == null) {
             Msg.send(sender, "unknown-home", args.length > 1 ? args[1] : args[0]);
@@ -41,7 +49,7 @@ public class CommandDelHome implements CommandExecutor {
             return true;
         }
 
-        if (!HomeManager.del(home)) {
+        if (!homeManager.del(home)) {
             Msg.send(p, "error");
         }
 

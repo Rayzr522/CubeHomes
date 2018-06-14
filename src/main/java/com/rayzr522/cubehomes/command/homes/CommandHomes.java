@@ -1,10 +1,10 @@
 package com.rayzr522.cubehomes.command.homes;
 
+import com.rayzr522.cubehomes.CubeHomes;
+import com.rayzr522.cubehomes.data.Home;
 import com.rayzr522.cubehomes.utils.ArrayUtils;
 import com.rayzr522.cubehomes.utils.Config;
 import com.rayzr522.cubehomes.utils.Msg;
-import com.rayzr522.cubehomes.data.Home;
-import com.rayzr522.cubehomes.data.HomeManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,6 +16,11 @@ import java.util.List;
  * Created by Rayzr522 on 5/27/17.
  */
 public class CommandHomes implements CommandExecutor {
+    private final CubeHomes plugin;
+
+    public CommandHomes(CubeHomes plugin) {
+        this.plugin = plugin;
+    }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
@@ -30,8 +35,7 @@ public class CommandHomes implements CommandExecutor {
             return true;
         }
 
-
-        List<Home> homes = HomeManager.all();
+        List<Home> homes = plugin.getHomeManager().all();
 
         if (homes.size() < 1) {
             Msg.send(player, "no-homes");
@@ -41,6 +45,5 @@ public class CommandHomes implements CommandExecutor {
 
         return true;
     }
-
 }
 

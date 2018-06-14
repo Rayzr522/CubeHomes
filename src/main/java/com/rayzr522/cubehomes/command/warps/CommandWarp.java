@@ -1,16 +1,22 @@
 package com.rayzr522.cubehomes.command.warps;
 
-import com.rayzr522.cubehomes.utils.Config;
-import com.rayzr522.cubehomes.utils.Msg;
+import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.data.WarpManager;
-import com.rayzr522.cubehomes.menu.Menu;
+import com.rayzr522.cubehomes.menu.MenuListener;
+import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Msg;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class CommandWarp implements CommandExecutor {
+    private final CubeHomes plugin;
+
+    public CommandWarp(CubeHomes plugin) {
+        this.plugin = plugin;
+    }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
@@ -30,7 +36,8 @@ public class CommandWarp implements CommandExecutor {
             return true;
         }
 
-        Warp warp = WarpManager.get(args[0]);
+        WarpManager warpManager = plugin.getWarpManager();
+        Warp warp = warpManager.get(args[0]);
 
         if (warp == null || (Config.PER_WORLD_WARPS && warp.getWorld() != p.getWorld())) {
             Msg.send(sender, "unknown-warp", args[0]);
@@ -49,7 +56,6 @@ public class CommandWarp implements CommandExecutor {
     }
 
     private void openMenu(Player p) {
-        p.openInventory(Menu.create(p, 0));
+        p.openInventory(MenuListener.create(p, 0));
     }
-
 }

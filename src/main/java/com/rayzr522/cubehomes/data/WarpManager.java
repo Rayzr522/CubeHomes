@@ -11,11 +11,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class WarpManager {
+    private List<Warp> warps = new ArrayList<>();
 
-    private static List<Warp> warps = new ArrayList<Warp>();
-
-    public static void load(YamlConfiguration config) {
-
+    public void load(ConfigurationSection config) {
         warps.clear();
 
         ConfigurationSection section = config.getConfigurationSection("warps");
@@ -33,26 +31,21 @@ public class WarpManager {
                 warps.add(warp);
             }
         }
-
     }
 
-    public static YamlConfiguration save() {
-
+    public YamlConfiguration save() {
         YamlConfiguration config = new YamlConfiguration();
 
         ConfigurationSection warpsSection = config.createSection("warps");
 
         for (Warp warp : warps) {
-
             warpsSection.set(TextUtils.safeString(warp.getName()), warp.serialize());
-
         }
 
         return config;
-
     }
 
-    public static Warp get(String name) {
+    public Warp get(String name) {
         for (Warp warp : warps) {
             if (TextUtils.enumFormat(name).equals(TextUtils.enumFormat(warp.getName()))) {
                 return warp;
@@ -61,17 +54,17 @@ public class WarpManager {
         return null;
     }
 
-    public static void add(Warp warp) {
+    public void add(Warp warp) {
         warps.add(warp);
     }
 
-    public static void add(Player player, String name) {
+    public void add(Player player, String name) {
         if (!update(player, name)) {
             warps.add(new Warp(name, player.getLocation()));
         }
     }
 
-    public static boolean update(Player player, String name) {
+    public boolean update(Player player, String name) {
         Warp warp = get(name);
         if (warp == null) {
             return false;
@@ -79,12 +72,12 @@ public class WarpManager {
         return update(player, warp);
     }
 
-    public static boolean update(Player player, Warp warp) {
+    public boolean update(Player player, Warp warp) {
         warp.setLocation(player.getLocation());
         return true;
     }
 
-    public static boolean del(String name) {
+    public boolean del(String name) {
         Warp warp = get(name);
         if (warp == null) {
             return false;
@@ -92,15 +85,15 @@ public class WarpManager {
         return del(warp);
     }
 
-    public static boolean del(Warp warp) {
+    public boolean del(Warp warp) {
         return warps.remove(warp);
     }
 
-    public static List<Warp> all() {
+    public List<Warp> all() {
         return warps;
     }
 
-    public static List<Warp> getForPage(Player player, int page) {
+    public List<Warp> getForPage(Player player, int page) {
         List<Warp> filtered = warps.stream()
                 .filter(warp -> warp.hasPermission(player))
                 .filter(warp -> !Config.PER_WORLD_WARPS || warp.getWorld() == player.getWorld())
@@ -115,12 +108,11 @@ public class WarpManager {
         return filtered.subList(offset, Math.min(offset + 28, filtered.size()));
     }
 
-    public static Warp getForIndex(int i) {
+    public Warp getForIndex(int i) {
         return warps.get(i);
     }
 
-    public static int maxPage() {
+    public int maxPage() {
         return warps.size() / 28;
     }
-
 }

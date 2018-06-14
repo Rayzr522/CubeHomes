@@ -1,5 +1,6 @@
 package com.rayzr522.cubehomes.data;
 
+import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.utils.ConfigUtils;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -68,7 +69,7 @@ public class Home implements ConfigurationSerializable {
     }
 
     public boolean isAccessible() {
-        return HomeManager.isAccessible(id);
+        return CubeHomes.getInstance().getHomeManager().isAccessible(id);
     }
 
     @Override

@@ -1,22 +1,26 @@
-
 package com.rayzr522.cubehomes.command.warps;
 
-import java.util.Arrays;
-
+import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.data.WarpManager;
+import com.rayzr522.cubehomes.utils.ArrayUtils;
+import com.rayzr522.cubehomes.utils.Config;
+import com.rayzr522.cubehomes.utils.Msg;
+import com.rayzr522.cubehomes.utils.TextUtils;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.rayzr522.cubehomes.utils.ArrayUtils;
-import com.rayzr522.cubehomes.utils.Config;
-import com.rayzr522.cubehomes.utils.Msg;
-import com.rayzr522.cubehomes.utils.TextUtils;
+import java.util.Arrays;
 
 public class CommandWarpIcon implements CommandExecutor {
+    private final CubeHomes plugin;
+
+    public CommandWarpIcon(CubeHomes plugin) {
+        this.plugin = plugin;
+    }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
@@ -36,7 +40,9 @@ public class CommandWarpIcon implements CommandExecutor {
             return true;
         }
 
-        Warp warp = WarpManager.get(args[0]);
+        WarpManager warpManager = plugin.getWarpManager();
+        Warp warp = warpManager.get(args[0]);
+
         if (warp == null) {
             Msg.send(p, "unknown-warp", args[0]);
             return true;
@@ -64,7 +70,5 @@ public class CommandWarpIcon implements CommandExecutor {
         Msg.send(p, "warp-icon-set", args[0], type.toString() + (data > 0 ? ":" + data : ""));
 
         return true;
-
     }
-
 }

@@ -1,10 +1,10 @@
 package com.rayzr522.cubehomes.menu;
 
+import com.rayzr522.cubehomes.CubeHomes;
+import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.utils.Color;
 import com.rayzr522.cubehomes.utils.Msg;
 import com.rayzr522.cubehomes.utils.TextUtils;
-import com.rayzr522.cubehomes.data.Warp;
-import com.rayzr522.cubehomes.data.WarpManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,18 +17,23 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu implements Listener {
+public class MenuListener implements Listener {
+    static final ItemStack BUTTON_PREV = button(Material.STAINED_GLASS_PANE, Color.RED, "&cPrevious Page", "&7&oTakes you to the previous page");
+    static final ItemStack BUTTON_CLOSE = button(Material.REDSTONE_BLOCK, 0, "&cClose", "&7&oCloses the menu");
+    static final ItemStack BUTTON_NEXT = button(Material.STAINED_GLASS_PANE, Color.RED, "&cNext Page", "&7&oTakes you to the next page");
 
-    public static final ItemStack BUTTON_PREV = button(Material.STAINED_GLASS_PANE, Color.RED, "&cPrevious Page", "&7&oTakes you to the previous page");
-    public static final ItemStack BUTTON_CLOSE = button(Material.REDSTONE_BLOCK, 0, "&cClose", "&7&oCloses the menu");
-    public static final ItemStack BUTTON_NEXT = button(Material.STAINED_GLASS_PANE, Color.RED, "&cNext Page", "&7&oTakes you to the next page");
+    private final CubeHomes plugin;
 
-    public static ItemStack button(Material type, int data, String name, String... lore) {
+    public MenuListener(CubeHomes plugin) {
+        this.plugin = plugin;
+    }
+
+    static ItemStack button(Material type, int data, String name, String... lore) {
 
         ItemStack item = new ItemStack(type, 1, (short) data);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(TextUtils.colorize(name));
-        List<String> _lore = new ArrayList<String>();
+        List<String> _lore = new ArrayList<>();
         for (String str : lore) {
             if (str == null) {
                 _lore.add("");
@@ -80,7 +85,7 @@ public class Menu implements Listener {
                 return;
             }
 
-            p.openInventory(Menu.create(p, page - 1));
+            p.openInventory(MenuListener.create(p, page - 1));
 
         } else if (e.getCurrentItem().equals(BUTTON_CLOSE)) {
 
@@ -91,11 +96,11 @@ public class Menu implements Listener {
             e.getWhoClicked().closeInventory();
 
             int page = holder.getPage();
-            if (page >= WarpManager.maxPage()) {
+            if (page >= plugin.getWarpManager().maxPage()) {
                 return;
             }
 
-            p.openInventory(Menu.create(p, page + 1));
+            p.openInventory(create(p, page + 1));
 
         } else {
 
