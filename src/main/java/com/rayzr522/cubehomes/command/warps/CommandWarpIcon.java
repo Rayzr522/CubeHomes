@@ -1,5 +1,5 @@
 
-package com.rayzr522.cubehomes.warps;
+package com.rayzr522.cubehomes.command.warps;
 
 import java.util.Arrays;
 

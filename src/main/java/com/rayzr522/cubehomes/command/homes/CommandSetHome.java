@@ -1,4 +1,4 @@
-package com.rayzr522.cubehomes.homes;
+package com.rayzr522.cubehomes.command.homes;
 
 import com.rayzr522.cubehomes.Config;
 import com.rayzr522.cubehomes.Msg;

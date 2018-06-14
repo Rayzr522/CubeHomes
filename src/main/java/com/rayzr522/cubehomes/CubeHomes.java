@@ -4,9 +4,9 @@ import com.rayzr522.cubehomes.data.Home;
 import com.rayzr522.cubehomes.data.HomeManager;
 import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.data.WarpManager;
-import com.rayzr522.cubehomes.homes.*;
+import com.rayzr522.cubehomes.command.homes.*;
 import com.rayzr522.cubehomes.menu.Menu;
-import com.rayzr522.cubehomes.warps.*;
+import com.rayzr522.cubehomes.command.warps.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
