@@ -35,7 +35,7 @@ public class CommandSetWarp implements CommandExecutor {
         }
 
         WarpManager warpManager = plugin.getWarpManager();
-        warpManager.add(p, args[0]);
+        warpManager.addWarp(p, args[0]);
 
         Language.send(p, "warp-set", args[0]);
         return true;

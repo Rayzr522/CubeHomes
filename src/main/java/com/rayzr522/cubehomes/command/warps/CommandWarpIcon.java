@@ -4,8 +4,8 @@ import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.data.WarpManager;
 import com.rayzr522.cubehomes.utils.ArrayUtils;
-import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.Language;
+import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.TextUtils;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -14,6 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public class CommandWarpIcon implements CommandExecutor {
     private final CubeHomes plugin;
@@ -41,12 +42,14 @@ public class CommandWarpIcon implements CommandExecutor {
         }
 
         WarpManager warpManager = plugin.getWarpManager();
-        Warp warp = warpManager.get(args[0]);
+        Optional<Warp> optionalWarp = warpManager.findWarp(args[0]);
 
-        if (warp == null) {
+        if (!optionalWarp.isPresent()) {
             Language.send(p, "unknown-warp", args[0]);
             return true;
         }
+
+        Warp warp = optionalWarp.get();
 
         String itemString = ArrayUtils.concat(Arrays.copyOfRange(args, 1, args.length), " ");
         int data = 0;

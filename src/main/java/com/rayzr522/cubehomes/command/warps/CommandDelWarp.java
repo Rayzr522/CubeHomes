@@ -3,12 +3,14 @@ package com.rayzr522.cubehomes.command.warps;
 import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.data.WarpManager;
-import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.Language;
+import com.rayzr522.cubehomes.utils.Settings;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Optional;
 
 public class CommandDelWarp implements CommandExecutor {
     private final CubeHomes plugin;
@@ -36,14 +38,16 @@ public class CommandDelWarp implements CommandExecutor {
         }
 
         WarpManager warpManager = plugin.getWarpManager();
-        Warp warp = warpManager.get(args[0]);
+        Optional<Warp> optionalWarp = warpManager.findWarp(args[0]);
 
-        if (warp == null) {
+        if (!optionalWarp.isPresent()) {
             Language.send(sender, "unknown-warp", args[0]);
             return true;
         }
 
-        if (!warpManager.del(warp)) {
+        Warp warp = optionalWarp.get();
+
+        if (!warpManager.removeWarp(warp)) {
             Language.send(p, "error");
         }
 

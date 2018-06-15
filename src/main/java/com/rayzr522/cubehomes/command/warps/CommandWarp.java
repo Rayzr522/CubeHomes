@@ -4,12 +4,14 @@ import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Warp;
 import com.rayzr522.cubehomes.data.WarpManager;
 import com.rayzr522.cubehomes.menu.MenuListener;
-import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.Language;
+import com.rayzr522.cubehomes.utils.Settings;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Optional;
 
 public class CommandWarp implements CommandExecutor {
     private final CubeHomes plugin;
@@ -37,12 +39,14 @@ public class CommandWarp implements CommandExecutor {
         }
 
         WarpManager warpManager = plugin.getWarpManager();
-        Warp warp = warpManager.get(args[0]);
+        Optional<Warp> optionalWarp = warpManager.findWarp(args[0]);
 
-        if (warp == null || (Settings.PER_WORLD_WARPS && warp.getWorld() != p.getWorld())) {
+        if (!optionalWarp.isPresent() || (Settings.PER_WORLD_WARPS && optionalWarp.get().getWorld() != p.getWorld())) {
             Language.send(sender, "unknown-warp", args[0]);
             return true;
         }
+
+        Warp warp = optionalWarp.get();
 
         if (!warp.hasPermission(p)) {
             Language.send(sender, "no-permission-warp");
