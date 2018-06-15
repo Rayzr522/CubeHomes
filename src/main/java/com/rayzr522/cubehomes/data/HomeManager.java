@@ -69,16 +69,12 @@ public class HomeManager {
                 .findFirst();
     }
 
+    public void addHome(Player player, String name) {
+        addHome(new Home(player, name));
+    }
+
     public void addHome(Home home) {
         homes.add(home);
-    }
-
-    public void addHome(Player player, String name) {
-        homes.add(new Home(player, name));
-    }
-
-    public boolean updateHome(Player player, String name) {
-        return findHome(name).map(home -> updateHome(player, home)).orElse(false);
     }
 
     public boolean updateHome(Player player, Home home) {
@@ -90,15 +86,8 @@ public class HomeManager {
         return true;
     }
 
-    public boolean removeHome(String name) {
-        return findHome(name).map(this::removeHome).orElse(false);
-    }
-
     public boolean removeHome(Home home) {
-        if (homes.remove(home)) {
-            return true;
-        }
-        return false;
+        return homes.remove(home);
     }
 
     public List<Home> getHomes() {
