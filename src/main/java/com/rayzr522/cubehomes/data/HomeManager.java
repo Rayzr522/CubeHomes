@@ -7,88 +7,101 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.*;
-import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class HomeManager {
     private List<Home> homes = new ArrayList<>();
     private Map<UUID, Boolean> players = new HashMap<>();
 
+    public void load(ConfigurationSection config) {
+        ConfigurationSection homesSection = config.getConfigurationSection("homes");
+        if (homesSection == null) {
+            homesSection = config.createSection("homes");
+        }
+
+        homes = homesSection.getKeys(false).stream()
+                .filter(homesSection::isConfigurationSection)
+                .map(homesSection::getConfigurationSection)
+                .map(Home::new)
+                .filter(Home::isValid)
+                .collect(Collectors.toList());
+
+        ConfigurationSection playersSection = config.getConfigurationSection("players");
+        if (playersSection == null) {
+            playersSection = config.createSection("players");
+        }
+
+        players = playersSection.getKeys(false).stream()
+                .collect(Collectors.toMap(UUID::fromString, homesSection::getBoolean));
+    }
+
     public YamlConfiguration save() {
         YamlConfiguration config = new YamlConfiguration();
 
-        ConfigurationSection homesSection = config.createSection("homes");
-        ConfigurationSection playersSection = config.createSection("players");
+        config.createSection(
+                "homes",
+                homes.stream().collect(Collectors.toMap(
+                        home -> TextUtils.safeString(home.getName()),
+                        Home::serialize
+                ))
+        );
 
-        for (Home home : homes) {
-            homesSection.set(TextUtils.safeString(home.getName()), home.serialize());
-        }
-
-        for (Entry<UUID, Boolean> entry : players.entrySet()) {
-            playersSection.set(entry.getKey().toString(), entry.getValue());
-        }
+        config.createSection(
+                "players",
+                players.keySet().stream().collect(Collectors.toMap(
+                        UUID::toString,
+                        players::get
+                ))
+        );
 
         return config;
     }
 
-    public List<Home> get(Player p) {
-        List<Home> homeList = new ArrayList<Home>();
-        for (Home home : homes) {
-            if (home.isOwner(p)) {
-                homeList.add(home);
-            }
-        }
-        return homeList;
+    public List<Home> getHomesForPlayer(Player player) {
+        return homes.stream()
+                .filter(home -> home.isOwner(player))
+                .collect(Collectors.toList());
     }
 
-    public Home get(String name) {
-        for (Home home : homes) {
-            if (TextUtils.enumFormat(name).equals(TextUtils.enumFormat(home.getName()))) {
-                return home;
-            }
-        }
-        return null;
+    public Optional<Home> findHome(String name) {
+        return homes.stream()
+                .filter(home -> TextUtils.enumFormat(home.getName()).equals(TextUtils.enumFormat(name)))
+                .findFirst();
     }
 
-    public void add(Home home) {
+    public void addHome(Home home) {
         homes.add(home);
     }
 
-    public void add(Player player, String name) {
+    public void addHome(Player player, String name) {
         homes.add(new Home(player, name));
     }
 
-    public boolean update(Player player, String name) {
-        Home home = get(name);
-        if (home == null) {
-            return false;
-        }
-        return update(player, home);
+    public boolean updateHome(Player player, String name) {
+        return findHome(name).map(home -> updateHome(player, home)).orElse(false);
     }
 
-    public boolean update(Player player, Home home) {
+    public boolean updateHome(Player player, Home home) {
         if (!home.isOwner(player) && !player.hasPermission(Settings.PERM_OTHERS)) {
             return false;
         }
+
         home.setLocation(player.getLocation());
         return true;
     }
 
-    public boolean del(String name) {
-        Home home = get(name);
-        if (home == null) {
-            return false;
-        }
-        return del(home);
+    public boolean removeHome(String name) {
+        return findHome(name).map(this::removeHome).orElse(false);
     }
 
-    public boolean del(Home home) {
+    public boolean removeHome(Home home) {
         if (homes.remove(home)) {
             return true;
         }
         return false;
     }
 
-    public List<Home> all() {
+    public List<Home> getHomes() {
         return homes;
     }
 
@@ -103,39 +116,7 @@ public class HomeManager {
         return players.put(id, accessible);
     }
 
-    public boolean toggleAccessibility(Player p) {
-        return setAccessible(p.getUniqueId(), !isAccessible(p.getUniqueId()));
-    }
-
-    public void load(ConfigurationSection config) {
-        homes.clear();
-
-        ConfigurationSection section = config.getConfigurationSection("homes");
-
-        // If there's no section then there's no point trying to load
-        if (section == null) {
-            config.createSection("homes");
-        } else {
-            for (String key : section.getKeys(false)) {
-                ConfigurationSection homeSection = section.getConfigurationSection(key);
-                Home home = new Home(homeSection);
-                if (!home.isValid()) {
-                    System.err.println("Invalid home for key '" + key + "'");
-                    continue;
-                }
-                homes.add(new Home(homeSection));
-            }
-        }
-
-        section = config.getConfigurationSection("players");
-
-        // If there's no section then there's no point trying to load
-        if (section == null) {
-            config.createSection("players");
-        } else {
-            for (String key : section.getKeys(false)) {
-                players.put(UUID.fromString(key), section.getBoolean(key));
-            }
-        }
+    public boolean toggleAccessibility(Player player) {
+        return setAccessible(player.getUniqueId(), !isAccessible(player.getUniqueId()));
     }
 }

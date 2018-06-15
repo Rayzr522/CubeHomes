@@ -35,7 +35,7 @@ public class CommandHomes implements CommandExecutor {
             return true;
         }
 
-        List<Home> homes = plugin.getHomeManager().all();
+        List<Home> homes = plugin.getHomeManager().getHomes();
 
         if (homes.size() < 1) {
             Language.send(player, "no-homes");

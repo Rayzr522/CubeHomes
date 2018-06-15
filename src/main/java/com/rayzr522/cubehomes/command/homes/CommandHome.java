@@ -3,12 +3,14 @@ package com.rayzr522.cubehomes.command.homes;
 import com.rayzr522.cubehomes.CubeHomes;
 import com.rayzr522.cubehomes.data.Home;
 import com.rayzr522.cubehomes.data.HomeManager;
-import com.rayzr522.cubehomes.utils.Settings;
 import com.rayzr522.cubehomes.utils.Language;
+import com.rayzr522.cubehomes.utils.Settings;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Optional;
 
 public class CommandHome implements CommandExecutor {
     private final CubeHomes plugin;
@@ -44,12 +46,14 @@ public class CommandHome implements CommandExecutor {
             return true;
         }
 
-        Home home = homeManager.get(args[0]);
+        Optional<Home> optionalHome = homeManager.findHome(args[0]);
 
-        if (home == null) {
+        if (!optionalHome.isPresent()) {
             Language.send(sender, "unknown-home", args.length > 1 ? args[1] : args[0]);
             return true;
         }
+
+        Home home = optionalHome.get();
 
         if (!home.isOwner(player) && !home.isAccessible()) {
             Language.send(sender, "no-access", home.getName());
